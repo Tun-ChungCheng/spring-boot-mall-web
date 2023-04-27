@@ -1,23 +1,6 @@
-function showToast(message) {
-  Toastify({
-    text: message,
-    duration: 3000,
-    destination: 'https://github.com/apvarun/toastify-js',
-    newWindow: true,
-    close: true,
-    gravity: 'top', // `top` or `bottom`
-    position: 'right', // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: {
-      background: 'linear-gradient(to right, #00b09b, #96c93d)',
-    },
-    onClick: function () {}, // Callback after click
-  }).showToast()
-}
-
 $(document)
   .ready(function () {
-    identifyUser()
+    checkAccessToken()
     $('#loadingSpinner').hide()
   })
   .ajaxStart(function () {
@@ -77,9 +60,11 @@ function login() {
 
       localStorage.setItem('userId', response.userId)
       localStorage.setItem('userName', response.userName)
-      localStorage.setItem('accessToken', response.accessToken)
+      localStorage.setItem('accessToken', 'Bearer ' + response.accessToken)
       if (role === 'ROLE_UNVERIFIED') {
         showToast('請先驗證信箱')
+      } else if (role === 'ROLE_ADMIN') {
+        window.location.href = './admin.html'
       } else {
         window.location.href = './user.html'
       }

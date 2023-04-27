@@ -1,4 +1,4 @@
-const size = 4
+const size = 6
 
 let products = []
 let cart = []
@@ -9,13 +9,10 @@ let orderId = 0
 let selectedProductId = 0
 
 ScrollReveal({ reset: true }).reveal('.game-type', {
-  delay: 500,
+  delay: 300,
 })
 ScrollReveal({ reset: true }).reveal('#myCarousel', {
-  delay: 1000,
-})
-ScrollReveal({ reset: true }).reveal('#cards', {
-  delay: 200,
+  delay: 500,
 })
 
 function showToast(message) {
@@ -36,7 +33,7 @@ function showToast(message) {
 }
 
 $(document).ready(function () {
-  identifyUser()
+  checkAccessToken()
   getProducts(1)
   getCategories()
 })
