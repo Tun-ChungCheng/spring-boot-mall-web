@@ -1,0 +1,40 @@
+.game-type {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.game-type:hover {
+  scale: 1;
+}
+
+#MMORPG {
+  background-image: url(../public/mapleStory.jpg);
+}
+
+#RPG {
+  background-image: url(../public/ghost.jpg);
+}
+
+#FPS {
+  background-image: url(../public/csgo.png);
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+html.sr .load-hidden {
+  visibility: hidden;
+}
