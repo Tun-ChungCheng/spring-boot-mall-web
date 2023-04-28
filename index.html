@@ -55,7 +55,7 @@
         <p class="lead">
           <a
             id="index-btn"
-            href="./product.html"
+            href="./products.html"
             class="btn btn-lg btn-secondary fw-bold border-white bg-white text-dark"
             >瞭解更多</a
           >
@@ -66,5 +66,11 @@
         <p>資源、圖片均來自網路，僅作學習用途</p>
       </footer>
     </div>
+
+    <script>
+      localStorage.getItem('accessToken')
+        ? (window.location.href = './products.html')
+        : ''
+    </script>
   </body>
 </html>

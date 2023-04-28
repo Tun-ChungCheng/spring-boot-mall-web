@@ -12,7 +12,7 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
-
+    <script src="./js/includeHTML.js"></script>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -30,41 +30,9 @@
     </style>
   </head>
   <body>
-    <header
-      class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
-    >
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="./index.html"
-        ><img
-          height="40"
-          src="./public/gamehub.png"
-          alt="logo"
-          style="border-radius: 3px"
-      /></a>
-      <button
-        class="navbar-toggler position-absolute d-md-none collapsed"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#sidebarMenu"
-        aria-controls="sidebarMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <input
-        class="form-control form-control-dark w-100"
-        type="text"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <div class="navbar-nav">
-        <div id="authBtn" class="nav-item text-nowrap">
-          <a class="nav-link px-3" href="./index.html">Sign out</a>
-        </div>
-      </div>
-    </header>
+    <div w3-include-html="./component/navbar.html"></div>
 
-    <!-- Modal -->
+    <!-- 修改商品彈出視窗 -->
     <div
       class="modal fade"
       id="productModal"
@@ -177,12 +145,14 @@
         </div>
       </div>
     </div>
+    <!-- 修改商品彈出視窗 -->
 
+    <!-- 功能選單 -->
     <div class="container-fluid">
       <div class="row">
         <nav
           id="sidebarMenu"
-          class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+          class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse p-5"
         >
           <div class="position-sticky pt-3">
             <ul class="nav flex-column">
@@ -209,11 +179,18 @@
         </nav>
 
         <main
-          class="col-md-9 ms-sm-auto col-lg-10 px-md-4"
-          style="height: 100vh"
+          class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-5"
+          style="height: 85vh"
         ></main>
       </div>
     </div>
+    <!-- 功能選單 -->
+
+    <div w3-include-html="./component/footer.html"></div>
+
+    <script>
+      includeHTML()
+    </script>
 
     <!-- JavaScript Bundle with Popper -->
     <script
