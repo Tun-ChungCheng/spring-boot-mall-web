@@ -42,6 +42,7 @@ function showAllProducts() {
     success: function (response) {
       main.empty()
       setProductTable(response)
+      console.log(response)
     },
   })
 }
@@ -50,8 +51,10 @@ function setProductTable(response) {
   products = response.results
 
   main.append(`
-    <table class="table">
-      <thead>
+    <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover caption-top fw-bold">
+      <caption>商品總覽</caption>
+      <thead class="table-dark ">
         <tr>
           <th scope="col">#</th>
           <th scope="col">名稱</th>
@@ -67,6 +70,7 @@ function setProductTable(response) {
       <tbody>
       </tbody>
     </table> 
+    </div>
   `)
 
   const tbodyEl = $('tbody')
@@ -78,7 +82,11 @@ function setProductTable(response) {
         <td>${product.price}</td>
         <td>${product.stock}</td>
         <td>${product.category}</td>
-        <td>${product.description}</td>
+        <td>
+          <span class="d-inline-block text-truncate" style="max-width: 100px;">
+            ${product.description}
+          </span>
+        </td>
         <td>${product.lastModifiedDate}</td>
         <td>${product.createdDate}</td>
         <td><button id="${
@@ -90,6 +98,14 @@ function setProductTable(response) {
       </tr>
     `)
   })
+
+  const totalPages = response.totalPages
+  if (totalPage > 1) {
+    tbodyEl.append(`
+      <button>next</button>
+    `)
+    console.log('123')
+  }
 }
 
 function showProductForm(button) {
