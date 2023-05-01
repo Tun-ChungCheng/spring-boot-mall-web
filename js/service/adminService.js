@@ -5,10 +5,18 @@ let products = []
 let main = $('main')
 let selectedProduct = 0 // 0 代表新增
 
-$(document).ready(function () {
-  checkAccessToken()
-  getCategories()
-})
+$(document)
+  .ready(function () {
+    checkAccessToken()
+    getCategories()
+    $('#loadingSpinner').hide()
+  })
+  .ajaxStart(function () {
+    $('#loadingSpinner').show()
+  })
+  .ajaxStop(function () {
+    $('#loadingSpinner').hide()
+  })
 
 function getCategories() {
   $.ajax({

@@ -1,3 +1,4 @@
+const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
 const size = 6
 
 let products = []
@@ -24,8 +25,8 @@ ScrollReveal({ reset: true }).reveal('#myCarousel', {
 
 function getCategories() {
   $.ajax({
-    type: 'get',
-    url: 'http://localhost:8080/api/products/categories',
+    type: 'GET',
+    url: serverUrl + '/api/products/categories',
     success: function (response) {
       setCategories(response)
     },
@@ -48,11 +49,11 @@ function setCategories(response) {
 }
 
 function getProducts(page) {
-  const url = `http://localhost:8080/api/products?page=${page}&size=${size}&category=${category}&search=${search}`
-
   $.ajax({
-    type: 'get',
-    url: url,
+    type: 'GET',
+    url:
+      serverUrl +
+      `/api/products?page=${page}&size=${size}&category=${category}&search=${search}`,
     success: function (response) {
       setProduct(response)
       setPages(response)
@@ -69,11 +70,7 @@ function setProduct(response) {
     cardsEl.append(`
     <div class="col">
       <div id="${product.productId}" class="card" onclick="redirectProductPage(this)">
-        <img
-          src="${product.imageUrl}"
-          class="card-img-top"
-          alt="${product.productName}"
-        />
+      <img src="data:image/png;base64,${product.image}" class="card-img-top" style='object-fit: cover' />
         <div class="card-body">
           <h5 class="card-title">
             <p class="mb-3">

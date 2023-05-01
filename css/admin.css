@@ -1,25 +1,12 @@
-#index-bg {
+#loadingSpinner {
   position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-
-#auth-btn {
-  border-bottom: 3px solid transport;
-}
-
-#auth-btn:hover {
-  border-bottom: 3px solid red;
-}
-
-.content {
-  position: fixed;
-  bottom: 0;
-  color: #f1f1f1;
+  display: none;
   width: 100%;
-  padding: 20px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  z-index: 5;
 }
 
 .bd-placeholder-img {
