@@ -12,6 +12,14 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
+
+    <!-- Toastify min CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
     <script src="./js/includeHTML.js"></script>
     <style>
       .bd-placeholder-img {
@@ -52,7 +60,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="form" enctype="multipart/form-data">
               <!-- 名稱 -->
               <div class="row mb-3">
                 <label for="productName" class="col-sm-2 col-form-label"
@@ -122,6 +130,19 @@
                 </div>
               </div>
               <!-- 敘述 -->
+              <!-- 圖片 -->
+              <div class="input-group">
+                <input
+                  name="file"
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  accept="image/jpeg, image/png, image/jpg"
+                  aria-describedby="inputGroupFileAddon04"
+                  aria-label="Upload"
+                />
+              </div>
+              <!-- 圖片 -->
             </form>
           </div>
           <div class="modal-footer">
@@ -178,10 +199,9 @@
           </div>
         </nav>
 
-        <main
-          class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-5"
-          style="height: 100vh"
-        ></main>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-5">
+          <p style="height: 60vh"></p>
+        </main>
       </div>
     </div>
     <!-- 功能選單 -->
@@ -206,6 +226,13 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- Toastify JS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+
+    <script src="./js/showToast.js"></script>
     <script src="./js/checkAccessToken.js"></script>
     <script src="./js/service/adminService.js"></script>
   </body>

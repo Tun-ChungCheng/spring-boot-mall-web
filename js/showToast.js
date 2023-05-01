@@ -2,8 +2,6 @@ function showToast(message) {
   Toastify({
     text: message,
     duration: 3000,
-    destination: 'https://github.com/apvarun/toastify-js',
-    newWindow: true,
     close: true,
     gravity: 'top', // `top` or `bottom`
     position: 'right', // `left`, `center` or `right`

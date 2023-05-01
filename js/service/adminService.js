@@ -1,4 +1,5 @@
 const token = localStorage.getItem('accessToken')
+const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
 
 let products = []
 let main = $('main')
@@ -11,9 +12,11 @@ $(document).ready(function () {
 
 function getCategories() {
   $.ajax({
-    type: 'get',
-    url: 'http://localhost:8080/api/products/categories',
-    dataType: 'json',
+    headers: {
+      Authorization: token,
+    },
+    type: 'GET',
+    url: serverUrl + '/api/products/categories',
     success: function (response) {
       setCategories(response)
     },
@@ -36,13 +39,11 @@ function showAllOrders() {}
 
 function showAllProducts() {
   $.ajax({
-    type: 'get',
-    url: 'http://localhost:8080/api/products?page=0&size=10',
-    dataType: 'json',
+    type: 'GET',
+    url: serverUrl + '/api/products?page=0&size=10',
     success: function (response) {
       main.empty()
       setProductTable(response)
-      console.log(response)
     },
   })
 }
@@ -52,24 +53,25 @@ function setProductTable(response) {
 
   main.append(`
     <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover caption-top fw-bold">
-      <caption>商品總覽</caption>
-      <thead class="table-dark ">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">名稱</th>
-          <th scope="col">價格</th>
-          <th scope="col">庫存</th>
-          <th scope="col">類別</th>
-          <th scope="col">敘述</th>
-          <th scope="col">更新日期</th>
-          <th scope="col">建立日期</th>
-          <th scope="col"><button id="0" class="btn btn-primary" onclick="showProductForm(this)" data-bs-toggle="modal" data-bs-target="#productModal">新增</button></th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table> 
+      <table class="table table-striped table-bordered table-hover caption-top fw-bold">
+        <caption>商品總覽</caption>
+        <thead class="table-dark ">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">圖片</th>
+            <th scope="col">名稱</th>
+            <th scope="col">價格</th>
+            <th scope="col">庫存</th>
+            <th scope="col">類別</th>
+            <th scope="col">敘述</th>
+            <th scope="col">更新日期</th>
+            <th scope="col">建立日期</th>
+            <th scope="col"><button id="0" class="btn btn-primary" onclick="showProductForm(this)" data-bs-toggle="modal" data-bs-target="#productModal">新增</button></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table> 
     </div>
   `)
 
@@ -78,6 +80,9 @@ function setProductTable(response) {
     tbodyEl.append(`    
       <tr>
         <th scope="row">${index + 1}</th>
+        <td><img width="64" height="64" src="data:image/png;base64,${
+          product.image
+        }" style='object-fit: cover' /></td>
         <td>${product.productName}</td>
         <td>${product.price}</td>
         <td>${product.stock}</td>
@@ -100,11 +105,10 @@ function setProductTable(response) {
   })
 
   const totalPages = response.totalPages
-  if (totalPage > 1) {
+  if (totalPages > 1) {
     tbodyEl.append(`
       <button>next</button>
     `)
-    console.log('123')
   }
 }
 
@@ -135,38 +139,48 @@ function showProductForm(button) {
 }
 
 function updateOrSaveProduct() {
-  const data = {
-    productName: $('#productName').val(),
-    price: $('#price').val(),
-    stock: $('#stock').val(),
-    category: $('#category').val(),
-    description: $('#description').val(),
-    imageUrl: 'No Image',
-  }
+  const formData = new FormData()
+  formData.append('productName', $('#productName').val())
+  formData.append('price', $('#price').val())
+  formData.append('stock', $('#stock').val())
+  formData.append('category', $('#category').val())
+  formData.append('description', $('#description').val())
+  formData.append('image', $('#image')[0].files[0])
 
   selectedProduct != 0
     ? $.ajax({
         headers: {
           Authorization: token,
         },
-        contentType: 'application/json',
-        type: 'put',
-        url: `http://localhost:8080/api/products/${selectedProduct}`,
-        data: JSON.stringify(data),
-        success: function () {
+        type: 'PUT',
+        url: serverUrl + `/api/products/${selectedProduct}`,
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (rs) {
+          console.log(rs)
+          showToast('更新商品成功!')
           showAllProducts()
+        },
+        error: function () {
+          showToast('更新商品失敗!')
         },
       })
     : $.ajax({
         headers: {
           Authorization: token,
         },
-        contentType: 'application/json',
-        type: 'post',
-        url: `http://localhost:8080/api/products`,
-        data: JSON.stringify(data),
+        type: 'POST',
+        url: serverUrl + `/api/products`,
+        processData: false,
+        contentType: false,
+        data: formData,
         success: function () {
+          showToast('新增商品成功!')
           showAllProducts()
+        },
+        error: function () {
+          showToast('新增商品失敗!')
         },
       })
 }
@@ -176,11 +190,14 @@ function deleteProduct() {
     headers: {
       Authorization: token,
     },
-    contentType: 'application/json',
-    type: 'delete',
-    url: `http://localhost:8080/api/products/${selectedProduct}`,
+    type: 'DELETE',
+    url: serverUrl + `/api/products/${selectedProduct}`,
     success: function () {
+      showToast('刪除商品成功!')
       showAllProducts()
+    },
+    error: function () {
+      showToast('刪除商品失敗!')
     },
   })
 }

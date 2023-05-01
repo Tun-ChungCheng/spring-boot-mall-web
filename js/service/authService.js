@@ -1,3 +1,5 @@
+const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+
 $(document)
   .ready(function () {
     checkAccessToken()
@@ -24,17 +26,15 @@ function register() {
 
   $.ajax({
     contentType: 'application/json',
-    type: 'post',
-    url: 'http://localhost:8080/api/users/register',
+    type: 'POST',
+    url: serverUrl + '/api/users/register',
     data: JSON.stringify(data),
     success: function (response) {
       showToast('註冊成功，請驗證此帳號')
       console.log(response)
     },
-    statusCode: {
-      403: function () {
-        showToast('使用者資料填寫有誤或已經註冊')
-      },
+    error: function () {
+      showToast('使用者資料填寫有誤或已經註冊')
     },
   })
 }
@@ -52,8 +52,8 @@ function login() {
 
   $.ajax({
     contentType: 'application/json',
-    type: 'post',
-    url: 'http://localhost:8080/api/users/login',
+    type: 'POST',
+    url: serverUrl + '/api/users/login',
     data: JSON.stringify(data),
     success: function (response) {
       const role = response.role
@@ -69,10 +69,8 @@ function login() {
         window.location.href = './user.html'
       }
     },
-    statusCode: {
-      403: function () {
-        showToast('使用者資料填寫有誤或尚未註冊')
-      },
+    error: function () {
+      showToast('使用者資料填寫有誤或尚未註冊')
     },
   })
 }
@@ -89,16 +87,14 @@ function forgetPassword() {
 
   $.ajax({
     contentType: 'application/json',
-    type: 'post',
-    url: 'http://localhost:8080/api/users/forget',
+    type: 'POST',
+    url: serverUrl + '/api/users/forget',
     data: JSON.stringify(data),
     success: function () {
       showToast('請前往信箱修改密碼')
     },
-    statusCode: {
-      403: function () {
-        showToast('使用者資料填寫有誤或信箱未註冊')
-      },
+    error: function () {
+      showToast('使用者資料填寫有誤或信箱未註冊')
     },
   })
 }
