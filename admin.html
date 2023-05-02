@@ -25,12 +25,6 @@
   <body>
     <div w3-include-html="./component/navbar.html"></div>
 
-    <!-- 讀取圖示 -->
-    <div id="loadingSpinner" class="pt-5">
-      <div class="spinner-border text-primary" role="status"></div>
-    </div>
-    <!-- 讀取圖示 -->
-
     <!-- 修改商品彈出視窗 -->
     <div
       class="modal fade"
@@ -188,10 +182,17 @@
           </div>
         </nav>
 
-        <main
+        <div
           class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-5"
           style="min-height: 80vh"
-        ></main>
+        >
+          <main></main>
+          <!-- 讀取圖示 -->
+          <div id="loadingSpinner" class="pt-5 text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+          <!-- 讀取圖示 -->
+        </div>
       </div>
     </div>
     <!-- 功能選單 -->

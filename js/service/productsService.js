@@ -69,7 +69,7 @@ function setProduct(response) {
   products.map((product) => {
     cardsEl.append(`
     <div class="col">
-      <div id="${product.productId}" class="card" onclick="redirectProductPage(this)">
+      <div id="${product.productId}" class="card " onclick="redirectProductPage(this)">
       <img src="data:image/png;base64,${product.image}" class="card-img-top" style='object-fit: cover' />
         <div class="card-body">
           <h5 class="card-title">
@@ -101,8 +101,7 @@ function setPages(response) {
   const totalPage = response.totalPages
   const pagesEl = $('#pages')
 
-  pagesEl.empty()
-  pagesEl.append(`
+  pagesEl.empty().append(`
     <li id="previous" class="page-item">
       <a class="page-link" onclick="queryPreviousOrNext(${
         parseInt(page) - 1
@@ -148,26 +147,5 @@ function stylePageButton(totalPage) {
     $('#previous').addClass('disabled')
   } else if (page == totalPage) {
     $('#next').addClass('disabled')
-  }
-}
-
-// $('#searchBtn').click(function (event) {
-//   event.preventDefault()
-//   search = $('#search').val()
-//   getProducts(1)
-// })
-
-// $('#confirmOrderBtn').click(function (event) {
-//   event.preventDefault()
-//   checkout()
-// })
-
-function selectCategory(anchor) {
-  if (anchor === undefined) {
-    $('#categoryBtn').text('ALL')
-    category = ''
-  } else {
-    $('#categoryBtn').text(anchor.innerText)
-    category = anchor.innerText
   }
 }

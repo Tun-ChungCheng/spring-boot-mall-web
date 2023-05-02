@@ -34,6 +34,7 @@ function addToCart() {
       productName: product.productName,
       quantity: 1,
       amount: product.price,
+      image: product.image,
     }
 
     cart.push({ ...item })
@@ -64,11 +65,6 @@ function setProduct(response) {
   $('#createdDate').text(product.createdDate)
   $('#price').text('$' + product.price)
   $('.image').attr('src', 'data:image/png;base64,' + product.image)
-}
-
-function deleteFromCart() {
-  if (cart.length === 1) cart = []
-  else console.log(cart.splice(productId, 1))
 }
 
 // function createOrder() {

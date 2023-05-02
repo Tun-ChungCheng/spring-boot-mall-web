@@ -1,31 +1,87 @@
 <!DOCTYPE html>
 <html lang="en" class="sr">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>遊戲世界，你掌控。</title>
-
-    <!-- Bootstrap core CSS -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>購物車</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="./js/includeHTML.js"></script>
-    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <link rel="stylesheet" href="./css/cart.css" />
   </head>
+
   <body>
     <div w3-include-html="./component/navbar.html"></div>
-
+    <main id="main" class="bg-black">
+      <div id="cartList" class="container">
+        <div class="list">
+          <div class="row">
+            <div id="image" class="col-4 item-img">
+              <img id="itemIcon" src="./public/00121-459134720.png" alt="" />
+            </div>
+            <div class="col-6 item-name">
+              <div class="row text-start">
+                <div class="col-12 col-lg-6 product">
+                  <h4 id="productName">商品Aaaaaaaaaa</h4>
+                </div>
+                <div class="col-12 col-lg-6 price">
+                  <h5 id="amount">NT$300</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <a href="" class="btn btn-danger"
+                ><i class="fa-solid fa-x"></i
+              ></a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5 col-lg-6 quantity">
+              <div class="row">
+                <div class="col-4 col-lg-3">
+                  <a href="" class="btn btn-outline-secondary"
+                    ><i class="fa-solid fa-minus"></i
+                  ></a>
+                </div>
+                <div class="col-2 col-lg-2">
+                  <h5 id="quantity">1</h5>
+                </div>
+                <div class="col-4 col-lg-3">
+                  <a href="" class="btn btn-outline-success"
+                    ><i class="fa-solid fa-plus"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-7 col-lg-6 checkout">
+              <a href="" class="btn btn-success" ;>
+                <div class="d-flex justify-content-around">
+                  <div>結帳</div>
+                  <div class="total">$300</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <div w3-include-html="./component/footer.html"></div>
-
     <script>
       includeHTML()
     </script>
 
-    <!-- JavaScript Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
@@ -39,7 +95,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="./js/showToast.js"></script>
     <script src="./js/checkAccessToken.js"></script>
     <script src="./js/service/cartService.js"></script>
   </body>
