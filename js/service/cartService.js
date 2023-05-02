@@ -125,7 +125,8 @@ function createOrder() {
     data: JSON.stringify(data),
     success: function (response) {
       console.log(response.orderId)
-      checkout(response.orderId)
+      const orderId = parseInt(response.orderId)
+      checkout(orderId)
     },
     error: function (e) {
       console.log(e)
@@ -134,7 +135,6 @@ function createOrder() {
 }
 
 function checkout(orderId) {
-  console.log()
   $.ajax({
     headers: {
       Authorization: token,
@@ -143,7 +143,7 @@ function checkout(orderId) {
     type: 'POST',
     url: serverUrl + `/api/users/${userId}/orders/${orderId}`,
     success: function (response) {
-      console.log(response)
+      $('body').html(response)
     },
     error: function (e) {
       console.log(e)

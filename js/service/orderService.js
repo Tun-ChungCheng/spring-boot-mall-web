@@ -1,6 +1,6 @@
+const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
 const token = localStorage.getItem('accessToken')
 const userId = localStorage.getItem('userId')
-const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
 
 let main = $('main')
 
@@ -15,7 +15,7 @@ function getOrders() {
       Authorization: token,
     },
     type: 'GET',
-    url: serverUrl + `/api/users/${userId}/orders`,
+    url: serverUrl + `/api/users/${userId}/orders?size=100`,
     success: function (response) {
       console.log(response)
       setOrderTable(response)
