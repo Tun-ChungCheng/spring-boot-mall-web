@@ -66,7 +66,7 @@ function login() {
       } else if (role === 'ROLE_ADMIN') {
         window.location.href = './admin.html'
       } else {
-        window.location.href = './user.html'
+        window.location.href = './products.html'
       }
     },
     error: function () {

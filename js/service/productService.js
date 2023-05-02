@@ -1,7 +1,14 @@
+const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+
+let productId = 0
+let product = {}
+let cart = []
+
 $(document).ready(function () {
   checkAccessToken()
   const urlParams = new URLSearchParams(window.location.search)
-  const productId = urlParams.get('id')
+  productId = urlParams.get('id')
+  cart = localStorage.getItem('cart')
 
   getProduct(productId)
 })
@@ -9,16 +16,31 @@ $(document).ready(function () {
 function getProduct(productId) {
   $.ajax({
     type: 'get',
-    url: `http://localhost:8080/api/products/${productId}`,
+    url: serverUrl + `/api/products/${productId}`,
     success: function (response) {
       console.log(response)
+      setProduct(response)
     },
   })
 }
 
+function setProduct(response) {
+  product = response
+
+  $('#productName').text(product.productName)
+  $('#description').text(product.description)
+  $('#category').text(product.category)
+  $('#createdDate').text(product.createdDate)
+  $('#price').text('$' + product.price)
+  $('.image').attr('src', 'data:image/png;base64,' + product.image)
+}
+
 function addToCart() {
-  const productId = parseInt(selectedProductId)
-  const quantity = parseInt($('#quantityVal').text())
+  cart[cart.length] = product
+
+  localStorage.setItem('cart', cart)
+
+  console.log(localStorage.getItem('cart'))
 
   let amount = 0
   if (isProductInCart(productId)) showToast('此商品已存在購物車')
@@ -38,7 +60,7 @@ function addToCart() {
             />
             <div class="card-footer">
               <small class="text-body-secondary">
-                <button id="${cart.length}" onclick="deleteFromCart(this)" 
+                <button id="${cart.length}" onclick="deleteFromCart(this)"
                 class="btn btn-primary me-5" type="button">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -65,29 +87,29 @@ function addToCart() {
   }
 }
 
-function isProductInCart(productId) {
-  let exist = false
-  cart.map((cartItem) => {
-    if (cartItem.productId == productId) exist = true
-  })
+// function isProductInCart(productId) {
+//   let exist = false
+//   cart.map((cartItem) => {
+//     if (cartItem.productId == productId) exist = true
+//   })
 
-  return exist
-}
+//   return exist
+// }
 
-function isQuantityEnough(productId, quantity) {
-  let enough = false
-  products.map((product) => {
-    if (product.productId === productId && product.stock < quantity)
-      enough = true
-  })
+// function isQuantityEnough(productId, quantity) {
+//   let enough = false
+//   products.map((product) => {
+//     if (product.productId === productId && product.stock < quantity)
+//       enough = true
+//   })
 
-  return enough
-}
+//   return enough
+// }
 
-function deleteFromCart(button) {
-  if (cart.length === 1) cart = []
-  else console.log(cart.splice(button.id, 1))
-}
+// function deleteFromCart(button) {
+//   if (cart.length === 1) cart = []
+//   else console.log(cart.splice(button.id, 1))
+// }
 
 // function createOrder() {
 //   let buyItemList = []

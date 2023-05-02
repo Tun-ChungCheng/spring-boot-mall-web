@@ -5,34 +5,203 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>遊戲世界，你掌控。</title>
 
-    <!-- Bootstrap core CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="./js/includeHTML.js"></script>
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <link rel="stylesheet" href="./css/gameLibrary.css" />
   </head>
+
   <body>
     <div w3-include-html="./component/navbar.html"></div>
 
+    <main class="bg-black">
+      <div class="container py-4">
+        <div class="row">
+          <div class="col col-12 col-lg-8">
+            <div class="title my-3">
+              <h1 id="productName">GameInfo</h1>
+            </div>
+            <div
+              id="carouselExampleIndicators"
+              class="carousel slide my-3"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-indicators">
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="0"
+                  class="active"
+                  aria-current="true"
+                  aria-label="Slide 1"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="1"
+                  aria-label="Slide 2"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="2"
+                  aria-label="Slide 3"
+                ></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img
+                    class="image d-block"
+                    src="data:image/png;base64,${
+                    product.image
+                  }"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    class="image d-block"
+                    src="data:image/png;base64,${
+                    product.image
+                  }"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    class="image d-block"
+                    src="data:image/png;base64,${
+                    product.image
+                  }"
+                    style="object-fit: cover"
+                  />
+                </div>
+              </div>
+
+              <button
+                class="carousel-control carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+            <div class="gameText my-3">
+              <p
+                id="description
+              "
+              >
+                玩家扮演的角色是名在這個世界中遊走的旅人，他的使命是採集各種資源，建立自己的家園，並探索這個神奇的世界。他穿著簡單的布衣和皮靴，手持一把鋼制斧頭，為了生存和自保，他必須謹慎地行動。他在草原上奔跑、在森林中追逐野獸、穿過河流和溪流，越過一座又一座的山丘和峽谷。在這個遼闊的世界中，他發現了許多寶藏，如銅礦、鐵礦、金礦、水晶石等，這些都是他建造自己家園所需要的資源。他還發現了許多野果和野菜，這些都是他的糧食和藥材。他在探索的過程中，遇到了許多困難和危險，如野獸的襲擊、天氣的突變、洞穴中的陷阱和怪物等，但他總是能夠克服這些困難，學會如何生存下去。他不斷地成長和進步，這個世界也在他的探索中變得越來越豐富和多彩。
+              </p>
+            </div>
+
+            <div class="d-flex my-3">
+              <div class="me-2">類型</div>
+              <div>
+                <span class="mx-1"><a id="category">角色扮演</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="col col-12 col-lg-4">
+            <div class="row">
+              <div class="col-12 text-center p-4">
+                <img class="image" style="width: 80%; padding: 20px" />
+              </div>
+              <div class="col-12 text-center">
+                <a
+                  href="https://www.example.com"
+                  class="btn btn-outline-dark d-block m-2"
+                  >購買&nbsp;&nbsp;&nbsp;<i
+                    class="fa-regular fa-credit-card"
+                  ></i
+                ></a>
+                <a
+                  class="btn btn-outline-dark d-block m-2"
+                  onclick="addToCart()"
+                  >加入購物車&nbsp;&nbsp;&nbsp;<i
+                    class="fa-solid fa-cart-shopping"
+                  ></i
+                ></a>
+              </div>
+              <div class="col-12 py-3">
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-between">
+                    <div>價格</div>
+                    <div id="price">$100</div>
+                  </div>
+                  <div class="col-12 d-flex justify-content-between">
+                    <div>開發者</div>
+                    <div>GameHub</div>
+                  </div>
+                  <div class="col-12 d-flex justify-content-between">
+                    <div>發行商</div>
+                    <div>GameHub</div>
+                  </div>
+                  <div class="col-12 d-flex justify-content-between">
+                    <div>上市日期</div>
+                    <div id="createdDate">XXXX年</div>
+                  </div>
+                  <div class="col-12 d-flex justify-content-between">
+                    <div>平台</div>
+                    <div>
+                      <i class="fa-brands fa-windows"></i>
+                      <i class="fa-brands fa-android"></i>
+                      <i class="fa-brands fa-apple"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <div w3-include-html="./component/footer.html"></div>
 
-    <script>
-      includeHTML()
-    </script>
-
-    <!-- JavaScript Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
 
-    <!-- jQuery Core 3.6.4 -->
+    <script>
+      includeHTML()
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"
       integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="

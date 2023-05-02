@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="sr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>遊戲世界，你掌控。</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+
+    <script src="./js/includeHTML.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+  </head>
+  <body>
+    <div w3-include-html="./component/navbar.html"></div>
+
+    <main class="ms-sm-auto col-lg-12 px-md-4 p-5" style="min-height: 80vh">
+      <div class="table-responsive">
+        <table
+          class="table table-striped table-bordered table-hover caption-top fw-bold"
+        >
+          <caption>
+            訂單總覽
+          </caption>
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">編號</th>
+              <th scope="col">總價</th>
+              <th scope="col">狀態</th>
+              <th scope="col">交易日期</th>
+              <th scope="col">建立日期</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </main>
+
+    <div w3-include-html="./component/footer.html"></div>
+
+    <script>
+      includeHTML()
+    </script>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- jQuery Core 3.6.4 -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="./js/showToast.js"></script>
+    <script src="./js/checkAccessToken.js"></script>
+    <script src="./js/service/orderService.js"></script>
+  </body>
+</html>
