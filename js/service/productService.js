@@ -6,12 +6,43 @@ let cart = []
 
 $(document).ready(function () {
   checkAccessToken()
+  loadCart()
   const urlParams = new URLSearchParams(window.location.search)
   productId = urlParams.get('id')
-  cart = localStorage.getItem('cart')
-
   getProduct(productId)
 })
+
+function loadCart() {
+  let savedCart = localStorage.getItem('cart')
+
+  if (savedCart) {
+    cart = JSON.parse(savedCart)
+  }
+}
+
+function addToCart() {
+  let itemIndex = cart.findIndex(
+    (cartItem) => cartItem.productId === parseInt(productId)
+  )
+
+  if (itemIndex !== -1) {
+    $('#addToCartBtn').attr('disabled', true)
+    showToast('商品已存在')
+  } else {
+    const item = {
+      productId: product.productId,
+      productName: product.productName,
+      quantity: 1,
+      amount: product.price,
+    }
+
+    cart.push({ ...item })
+    localStorage.setItem('cart', JSON.stringify(cart))
+    showToast('成功加入購物車')
+    $('#addToCartBtn').attr('disabled', true)
+    console.log(JSON.parse(localStorage.getItem('cart')))
+  }
+}
 
 function getProduct(productId) {
   $.ajax({
@@ -35,81 +66,10 @@ function setProduct(response) {
   $('.image').attr('src', 'data:image/png;base64,' + product.image)
 }
 
-function addToCart() {
-  cart[cart.length] = product
-
-  localStorage.setItem('cart', cart)
-
-  console.log(localStorage.getItem('cart'))
-
-  let amount = 0
-  if (isProductInCart(productId)) showToast('此商品已存在購物車')
-  else if (isQuantityEnough(productId, quantity)) showToast('此商品庫存不足')
-  else {
-    products.map((product) => {
-      if (product.productId == productId) {
-        amount = quantity * product.price
-
-        $('#cart').append(`
-        <div id="cartItem_${cart.length}" class="col mb-1">
-          <div class="card">
-            <img
-              src="${product.imageUrl}"
-              class="card-img-top"
-              alt="${product.productName}"
-            />
-            <div class="card-footer">
-              <small class="text-body-secondary">
-                <button id="${cart.length}" onclick="deleteFromCart(this)"
-                class="btn btn-primary me-5" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                  </svg>
-                </button>
-                ${product.productName} ${quantity} $${amount}
-              </small>
-            </div>
-          </div>
-        </div>
-    `)
-
-        const data = {
-          productId: product.productId,
-          productName: product.productName,
-          quantity: quantity,
-          amount: amount,
-        }
-        cart[cart.length] = data
-      }
-    })
-    showToast('成功加入購物車')
-    addCreateOrderButton()
-  }
+function deleteFromCart() {
+  if (cart.length === 1) cart = []
+  else console.log(cart.splice(productId, 1))
 }
-
-// function isProductInCart(productId) {
-//   let exist = false
-//   cart.map((cartItem) => {
-//     if (cartItem.productId == productId) exist = true
-//   })
-
-//   return exist
-// }
-
-// function isQuantityEnough(productId, quantity) {
-//   let enough = false
-//   products.map((product) => {
-//     if (product.productId === productId && product.stock < quantity)
-//       enough = true
-//   })
-
-//   return enough
-// }
-
-// function deleteFromCart(button) {
-//   if (cart.length === 1) cart = []
-//   else console.log(cart.splice(button.id, 1))
-// }
 
 // function createOrder() {
 //   let buyItemList = []

@@ -42,7 +42,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="productModalLabel">修改商品</h5>
+            <h5 class="modal-title" id="productModalLabel">商品</h5>
             <button
               type="button"
               class="btn-close"
@@ -138,6 +138,7 @@
           </div>
           <div class="modal-footer">
             <button
+              id="deleteBtn"
               type="button"
               class="btn btn-danger"
               onclick="deleteProduct()"
@@ -168,9 +169,6 @@
         >
           <div class="position-sticky pt-3">
             <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" href="#"> 分析 </a>
-              </li>
               <li class="nav-item">
                 <a class="nav-link" onclick="showAllOrders()" href="#">
                   訂單

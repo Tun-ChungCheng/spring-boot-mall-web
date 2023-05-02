@@ -8,7 +8,6 @@ let selectedProduct = 0 // 0 代表新增
 $(document)
   .ready(function () {
     checkAccessToken()
-    getCategories()
     $('#loadingSpinner').hide()
   })
   .ajaxStart(function () {
@@ -111,39 +110,123 @@ function setProductTable(response) {
       </tr>
     `)
   })
-
-  const totalPages = response.totalPages
-  if (totalPages > 1) {
-    tbodyEl.append(`
-      <button>next</button>
-    `)
-  }
 }
 
 function showProductForm(button) {
+  resetProductForm()
+  getCategories()
   const productId = button.id
   selectedProduct = productId
 
-  products.map((product) => {
-    if (productId == product.productId) {
-      $('#productName').attr({
-        placeholder: product.productName,
-        value: product.productName,
-      })
-      $('#price').attr({ placeholder: product.price, value: product.price })
-      $('#stock').attr({ placeholder: product.stock, value: product.stock })
-      $('#description').attr({
-        placeholder: product.description,
-        value: product.description,
-      })
-    }
-  })
   if (selectedProduct == 0) {
-    $('#productName, #price, #stock, #description').attr({
-      placeholder: '',
-      value: '',
+    $('#deleteBtn').hide()
+    $('#productModalLabel').text('新增商品')
+  } else {
+    products.map((product) => {
+      $('#deleteBtn').show()
+      $('#productModalLabel').text('修改商品')
+      if (parseInt(productId) === product.productId) {
+        $('#productName').attr({
+          placeholder: product.productName,
+          value: product.productName,
+        })
+        $('#price').attr({ placeholder: product.price, value: product.price })
+        $('#stock').attr({ placeholder: product.stock, value: product.stock })
+        $('#description').attr({
+          placeholder: product.description,
+          value: product.description,
+        })
+      }
     })
   }
+}
+
+function resetProductForm() {
+  $('#form').empty().append(`
+      <!-- 名稱 -->
+      <div class="row mb-3">
+        <label for="productName" class="col-sm-2 col-form-label"
+          >名稱</label
+        >
+        <div class="col-sm-10">
+          <input
+            id="productName"
+            name="productName"
+            class="form-control"
+            type="email"
+          />
+        </div>
+      </div>
+      <!-- 名稱 -->
+      <!-- 價格 -->
+      <div class="row mb-3">
+        <label for="price" class="col-sm-2 col-form-label">價格</label>
+        <div class="col-sm-10">
+          <input
+            name="price"
+            type="number"
+            class="form-control"
+            id="price"
+          />
+        </div>
+      </div>
+      <!-- 價格 -->
+      <!-- 庫存 -->
+      <div class="row mb-3">
+        <label for="stock" class="col-sm-2 col-form-label">庫存</label>
+        <div class="col-sm-10">
+          <input
+            id="stock"
+            name="stock"
+            class="form-control"
+            type="number"
+          />
+        </div>
+      </div>
+      <!-- 庫存 -->
+      <!-- 類別 -->
+      <div class="row mb-3">
+        <label for="category" class="col-sm-2 col-form-label"
+          >類別</label
+        >
+        <div class="col-sm-10">
+          <select
+            name="category"
+            class="form-select"
+            id="category"
+          ></select>
+        </div>
+      </div>
+      <!-- 類別 -->
+      <!-- 敘述 -->
+      <div class="row mb-3">
+        <label for="description" class="col-sm-2 col-form-label"
+          >敘述</label
+        >
+        <div class="col-sm-10">
+          <textarea
+            id="description"
+            name="description"
+            class="form-control"
+          ></textarea>
+        </div>
+      </div>
+      <!-- 敘述 -->
+      <!-- 圖片 -->
+      <div class="input-group">
+        <input
+          name="file"
+          type="file"
+          class="form-control"
+          id="image"
+          accept="image/jpeg, image/png, image/jpg"
+          aria-describedby="inputGroupFileAddon04"
+          aria-label="Upload"
+        />
+      </div>
+      <!-- 圖片 -->
+    </form>
+  `)
 }
 
 function updateOrSaveProduct() {

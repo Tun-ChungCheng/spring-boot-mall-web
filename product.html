@@ -18,6 +18,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- Toastify min CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
     <script src="./js/includeHTML.js"></script>
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
     <link rel="stylesheet" href="./css/gameLibrary.css" />
@@ -116,18 +123,13 @@
               </button>
             </div>
             <div class="gameText my-3">
-              <p
-                id="description
-              "
-              >
-                玩家扮演的角色是名在這個世界中遊走的旅人，他的使命是採集各種資源，建立自己的家園，並探索這個神奇的世界。他穿著簡單的布衣和皮靴，手持一把鋼制斧頭，為了生存和自保，他必須謹慎地行動。他在草原上奔跑、在森林中追逐野獸、穿過河流和溪流，越過一座又一座的山丘和峽谷。在這個遼闊的世界中，他發現了許多寶藏，如銅礦、鐵礦、金礦、水晶石等，這些都是他建造自己家園所需要的資源。他還發現了許多野果和野菜，這些都是他的糧食和藥材。他在探索的過程中，遇到了許多困難和危險，如野獸的襲擊、天氣的突變、洞穴中的陷阱和怪物等，但他總是能夠克服這些困難，學會如何生存下去。他不斷地成長和進步，這個世界也在他的探索中變得越來越豐富和多彩。
-              </p>
+              <p id="description"></p>
             </div>
 
             <div class="d-flex my-3">
               <div class="me-2">類型</div>
               <div>
-                <span class="mx-1"><a id="category">角色扮演</a></span>
+                <span class="mx-1"><a id="category"></a></span>
               </div>
             </div>
           </div>
@@ -137,20 +139,23 @@
                 <img class="image" style="width: 80%; padding: 20px" />
               </div>
               <div class="col-12 text-center">
-                <a
+                <button
                   href="https://www.example.com"
                   class="btn btn-outline-dark d-block m-2"
-                  >購買&nbsp;&nbsp;&nbsp;<i
+                >
+                  購買&nbsp;&nbsp;&nbsp;<i
                     class="fa-regular fa-credit-card"
-                  ></i
-                ></a>
-                <a
+                  ></i>
+                </button>
+                <button
+                  id="addToCartBtn"
                   class="btn btn-outline-dark d-block m-2"
                   onclick="addToCart()"
-                  >加入購物車&nbsp;&nbsp;&nbsp;<i
+                >
+                  加入購物車&nbsp;&nbsp;&nbsp;<i
                     class="fa-solid fa-cart-shopping"
-                  ></i
-                ></a>
+                  ></i>
+                </button>
               </div>
               <div class="col-12 py-3">
                 <div class="row">
@@ -206,6 +211,11 @@
       src="https://code.jquery.com/jquery-3.6.4.min.js"
       integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
       crossorigin="anonymous"
+    ></script>
+    <!-- Toastify JS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
     ></script>
 
     <script src="./js/showToast.js"></script>
