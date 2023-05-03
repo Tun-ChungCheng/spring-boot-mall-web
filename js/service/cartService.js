@@ -152,6 +152,8 @@ function createOrder() {
     buyItemList: buyItemList,
   }
 
+  if (token === null) window.location.href = './auth.html'
+
   $('#checkoutBtn').empty()
   $('#checkoutBtn').append(
     '<div class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></div>'

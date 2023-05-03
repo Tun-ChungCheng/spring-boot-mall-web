@@ -71,6 +71,8 @@ function setOrderTable(response) {
 function checkout(button) {
   const orderId = button.id
 
+  if(token === null) window.location.href='./auth.html' 
+
   $.ajax({
     headers: {
       Authorization: token,

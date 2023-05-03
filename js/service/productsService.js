@@ -9,11 +9,18 @@ let search = ''
 let orderId = 0
 let selectedProductId = 0
 
-$(document).ready(function () {
-  checkAccessToken()
-  getProducts(1)
-  getCategories()
-})
+$(document)
+  .ready(function () {
+    checkAccessToken()
+    getProducts(1)
+    getCategories()
+  })
+  .ajaxStart(function () {
+    $('#loadingSpinner').show()
+  })
+  .ajaxStop(function () {
+    $('#loadingSpinner').hide()
+  })
 
 ScrollReveal({ reset: true }).reveal('.game-type', {
   delay: 300,
