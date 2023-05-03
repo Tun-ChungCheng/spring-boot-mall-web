@@ -12,11 +12,18 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./css/loadingSpinner.css" />
 
     <script src="./js/includeHTML.js"></script>
   </head>
   <body>
     <div w3-include-html="./component/navbar.html"></div>
+
+    <!-- 讀取圖示 -->
+    <div id="loadingSpinner" class="pt-5">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <!-- 讀取圖示 -->
 
     <main class="ms-sm-auto col-lg-12 px-md-4 p-5" style="min-height: 80vh">
       <div class="table-responsive">
@@ -34,9 +41,10 @@
               <th scope="col">狀態</th>
               <th scope="col">交易日期</th>
               <th scope="col">建立日期</th>
-              <th scope="col"></th>
+              <th scope="col">細節</th>
             </tr>
           </thead>
+
           <tbody></tbody>
         </table>
       </div>

@@ -3,7 +3,6 @@ const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
 $(document)
   .ready(function () {
     checkAccessToken()
-    $('#loadingSpinner').hide()
   })
   .ajaxStart(function () {
     $('#loadingSpinner').show()

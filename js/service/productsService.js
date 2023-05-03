@@ -69,11 +69,11 @@ function setProduct(response) {
   products.map((product) => {
     cardsEl.append(`
     <div class="col">
-      <div id="${product.productId}" class="card " onclick="redirectProductPage(this)">
+      <div id="${product.productId}" class="card" style="cursor: pointer;" onclick="redirectProductPage(this)">
       <img src="data:image/png;base64,${product.image}" class="card-img-top" style='object-fit: cover' />
         <div class="card-body">
           <h5 class="card-title">
-            <p class="mb-3">
+            <p class="mb-3" style="height:50px">
               ${product.productName} 
             </p>
             <p> $${product.price}</p>
@@ -89,6 +89,12 @@ function setProduct(response) {
     </div>
     `)
   })
+  $('.card').mouseover(function () {
+    $(this).css('backgroundColor', '#ffd6ba')
+  })
+  $('.card').mouseout(function () {
+    $(this).css('backgroundColor', '#fff')
+  })
 }
 
 function redirectProductPage(divEl) {
@@ -99,11 +105,14 @@ function redirectProductPage(divEl) {
 
 function setPages(response) {
   const totalPage = response.totalPages
+
   const pagesEl = $('#pages')
 
-  pagesEl.empty().append(`
+  pagesEl.empty()
+
+  pagesEl.append(`
     <li id="previous" class="page-item">
-      <a class="page-link" onclick="queryPreviousOrNext(${
+      <a class="page-link page-previous" style="background-color: #fff; font-size:24px; color: #000; cursor: pointer;" onclick="queryPreviousOrNext(${
         parseInt(page) - 1
       })">前一頁</a>
     </li>
@@ -112,19 +121,30 @@ function setPages(response) {
   for (let pageNum = 1; pageNum < totalPage + 1; pageNum++) {
     pagesEl.append(`
       <li class="page-item" data-bs-toggle="tooltip" data-bs-placement="top" title="${pageNum}">
-        <a id="page_${pageNum}" class="page-link" onclick="queryPage(this)">${pageNum}</a>
+        <a id="page_${pageNum}" class="page-link" style="background-color: #fff; font-size:24px; color: #000; cursor: not-allowed;" onclick="queryPage(this)">${pageNum}</a>
       </li>
     `)
   }
 
   pagesEl.append(`
     <li id="next" class="page-item">
-      <a class="page-link" onclick="queryPreviousOrNext(${
+      <a class="page-link page-next" style="background-color: #fff; font-size:24px; color: #000; cursor: pointer;" onclick="queryPreviousOrNext(${
         parseInt(page) + 1
       })">後一頁</a>
     </li>
   `)
-  stylePageButton(totalPage)
+  $('.page-next').mouseover(function () {
+    $('.page-next').css('backgroundColor', '#ffd6ba')
+  })
+  $('.page-next').mouseout(function () {
+    $('.page-next').css('backgroundColor', '#fff')
+  })
+  $('.page-previous').mouseover(function () {
+    $('.page-previous').css('backgroundColor', '#ffd6ba')
+  })
+  $('.page-previous').mouseout(function () {
+    $('.page-previous').css('backgroundColor', '#fff')
+  })
 }
 
 function queryPreviousOrNext(clickedPage) {
@@ -147,5 +167,15 @@ function stylePageButton(totalPage) {
     $('#previous').addClass('disabled')
   } else if (page == totalPage) {
     $('#next').addClass('disabled')
+  }
+}
+
+function selectCategory(anchor) {
+  if (anchor === undefined) {
+    $('#categoryBtn').text('ALL')
+    category = ''
+  } else {
+    $('#categoryBtn').text(anchor.innerText)
+    category = anchor.innerText
   }
 }
