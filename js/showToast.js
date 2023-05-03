@@ -1,8 +1,8 @@
 function showToast(message) {
   Toastify({
     text: message,
-    duration: 3000,
-    close: true,
+    duration: 1000,
+    close: false,
     gravity: 'top', // `top` or `bottom`
     position: 'right', // `left`, `center` or `right`
     stopOnFocus: true, // Prevents dismissing of toast on hover

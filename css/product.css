@@ -1,40 +1,31 @@
-.game-type {
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+.container {
+  background-color: rgba(229, 233, 236, 0.8);
+  min-height: 600px;
 }
 
-.game-type:hover {
-  scale: 1;
+/* 隱藏輪播前後btn hover顯現 */
+.carousel .carousel-control {
+  opacity: 0;
 }
 
-#MMORPG {
-  background-image: url(../public/mapleStory.jpg);
+.carousel:hover .carousel-control {
+  opacity: 1;
 }
 
-#RPG {
-  background-image: url(../public/ghost.jpg);
+/* 隱藏輪播指示器 hover顯現 */
+.carousel .carousel-indicators {
+  opacity: 0;
 }
 
-#FPS {
-  background-image: url(../public/csgo.png);
+.carousel:hover .carousel-indicators {
+  opacity: 1;
 }
 
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+/*去除a標籤底線*/
+a {
+  text-decoration: none;
 }
 
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-}
-
-html.sr .load-hidden {
-  visibility: hidden;
+#gameTitleIcon {
+  width: 50%;
 }

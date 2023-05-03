@@ -33,7 +33,7 @@ function setCart() {
     })
   } else {
     cart.map((cartItem) => {
-      totalAmount += cartItem.amount
+      totalAmount += cartItem.amount * cartItem.quantity
       cartList.append(`
       <div class="list">
         <div class="row ">
@@ -52,12 +52,14 @@ function setCart() {
                 <h4>${cartItem.productName}</h4>
               </div>
               <div class="col-12 col-lg-6 price">
-                <h5>NT${cartItem.amount}</h5>
+                <h5>NT${cartItem.amount * cartItem.quantity}</h5>
               </div>
             </div>
           </div>
           <div class="col-2">
-            <a id="${cartItem.productId}" class="btn btn-danger" onclick="deleteFromCart(this)"
+            <a id="delete-${
+              cartItem.productId
+            }" class="btn btn-danger" onclick="deleteFromCart(this)"
               ><i class="fa-solid fa-x"></i
             ></a>
           </div>
@@ -66,42 +68,73 @@ function setCart() {
           <div class="col-5 col-lg-6 quantity">
             <div class="row">
               <div class="col-4 col-lg-3">
-                <a class="btn btn-outline-secondary"
-                  ><i class="fa-solid fa-minus"></i
-                ></a>
+                <a id="reduce-${
+                  cartItem.productId
+                }" class="btn btn-outline-secondary" onclick="reduceQuantity(this)">
+                  <i class="fa-solid fa-minus"></i>
+                </a>
               </div>
               <div class="col-2 col-lg-2">
                 <h5>${cartItem.quantity}</h5>
               </div>
               <div class="col-4 col-lg-3">
-                <a class="btn btn-outline-success" 
-                  ><i class="fa-solid fa-plus"></i
-                ></a>
+                <a id="add-${
+                  cartItem.productId
+                }" class="btn btn-outline-success" onclick="addQuantity(this)">
+                  <i class="fa-solid fa-plus"></i>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
     `)
     })
     cartList.append(`
-  <div class="text-center">
-    <div class="col-12 col-lg-12 checkout">
-      <button id="checkoutBtn" class="btn btn-success" onclick="createOrder()">
-        <div class="d-flex justify-content-around">
-          <div>結帳</div>
-          <div class="total">$${totalAmount}</div>
-        </div>
-      </button>
-    </div>
+    <div class="text-center">
+      <div class="col-12 col-lg-12 checkout">
+        <button id="checkoutBtn" class="btn btn-success" onclick="createOrder()">
+          <div class="d-flex justify-content-around">
+            <div>結帳</div>
+            <div class="total">$${totalAmount}</div>
+          </div>
+        </button>
+      </div>
     </div>
   `)
   }
 }
 
+function reduceQuantity(button) {
+  const productId = parseInt(button.id.substring(7))
+  cart.forEach(function (item, index) {
+    if (item.productId === productId) {
+      if (item.quantity > 1) {
+        item.quantity--
+      } else {
+        cart.splice(index, 1)
+      }
+    }
+  })
+  localStorage.setItem('cart', JSON.stringify(cart))
+  setCart()
+}
+
+function addQuantity(button) {
+  const productId = parseInt(button.id.substring(4))
+  cart.forEach(function (item) {
+    if (item.productId === productId) {
+      if (item.quantity < 10) {
+        item.quantity++
+      }
+    }
+  })
+  localStorage.setItem('cart', JSON.stringify(cart))
+  setCart()
+}
+
 function deleteFromCart(button) {
-  const productId = parseInt(button.id)
+  const productId = parseInt(button.id.substring(7))
   cart = cart.filter((item) => item.productId !== productId)
   localStorage.setItem('cart', JSON.stringify(cart))
   setCart()
@@ -134,7 +167,7 @@ function createOrder() {
     url: serverUrl + `/api/users/${userId}/orders`,
     data: JSON.stringify(data),
     success: function (response) {
-      const orderId = parseInt(response.orderId)
+      const orderId = response.orderId
       checkout(orderId)
     },
     error: function (e) {
