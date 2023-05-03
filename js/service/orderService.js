@@ -4,10 +4,18 @@ const userId = localStorage.getItem('userId')
 
 let main = $('main')
 
-$(document).ready(function () {
-  checkAccessToken()
-  getOrders()
-})
+$(document)
+  .ready(function () {
+    checkAccessToken()
+    getOrders()
+    $('#loadingSpinner').hide()
+  })
+  .ajaxStart(function () {
+    $('#loadingSpinner').show()
+  })
+  .ajaxStop(function () {
+    $('#loadingSpinner').hide()
+  })
 
 function getOrders() {
   $.ajax({
@@ -34,18 +42,25 @@ function setOrderTable(response) {
         <td>${order.uuid}</td>
         <td>${order.totalAmount}</td>
         <td>${order.paymentStatus}</td>
-        <td>${order.lastModifiedDate}</td>
+        <td>${order.paymentDate}</td>
         <td>${order.createdDate}</td>
-        <td><button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          v
-        </button>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-            
-          </div>
-        </div></td>
+        <td>
+          <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#order${
+            order.uuid
+          }" aria-expanded="false" aria-controls="order${order.uuid}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-down-square-fill" viewBox="0 0 16 16">
+              <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"/>
+            </svg>
+          </button>
+        </td>
       </tr>
-        
+      <tr class="bg-tertiary">
+        <td colspan="7">
+          <div class="collapse" id="order${order.uuid}">
+            123
+          </div>
+        </td>
+      </tr>
     `)
   })
 

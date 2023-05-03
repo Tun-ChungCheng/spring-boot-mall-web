@@ -25,12 +25,19 @@ function setCart() {
   let totalAmount = 0
   cartList.empty()
 
-  cart.map((cartItem) => {
-    totalAmount += cartItem.amount
-    cartList.append(`
+  if (cart.length === 0) {
+    $('#cartList').css({
+      'background-image': 'url("./public/dogCart.png")',
+      'background-repeat': 'no-repeat',
+      'background-size': 'cover',
+    })
+  } else {
+    cart.map((cartItem) => {
+      totalAmount += cartItem.amount
+      cartList.append(`
       <div class="list">
         <div class="row ">
-          <div id="image" class="col-4 item-img ">
+          <div id="image" class="col-4 item-img">
             <img
               id="itemIcon"
               class="image"
@@ -73,17 +80,15 @@ function setCart() {
               </div>
             </div>
           </div>
-          
         </div>
-        
       </div>
       
     `)
-  })
-  cartList.append(`
+    })
+    cartList.append(`
   <div class="text-center">
     <div class="col-12 col-lg-12 checkout">
-      <button class="btn btn-success" onclick="createOrder()">
+      <button id="checkoutBtn" class="btn btn-success" onclick="createOrder()">
         <div class="d-flex justify-content-around">
           <div>結帳</div>
           <div class="total">$${totalAmount}</div>
@@ -92,13 +97,13 @@ function setCart() {
     </div>
     </div>
   `)
+  }
 }
 
 function deleteFromCart(button) {
-  const productId = button.id
-  if (cart.length === 1) cart = []
-  else console.log(cart.splice(productId, 1))
-  localStorage.setItem('cart', cart)
+  const productId = parseInt(button.id)
+  cart = cart.filter((item) => item.productId !== productId)
+  localStorage.setItem('cart', JSON.stringify(cart))
   setCart()
 }
 
@@ -110,10 +115,15 @@ function createOrder() {
       quantity: cartItem.quantity,
     }
   })
-
   const data = {
     buyItemList: buyItemList,
   }
+
+  $('#checkoutBtn').empty()
+  $('#checkoutBtn').append(
+    '<div class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></div>'
+  )
+  $('#checkoutBtn').attr('disabled', true)
 
   $.ajax({
     headers: {
@@ -124,7 +134,6 @@ function createOrder() {
     url: serverUrl + `/api/users/${userId}/orders`,
     data: JSON.stringify(data),
     success: function (response) {
-      console.log(response.orderId)
       const orderId = parseInt(response.orderId)
       checkout(orderId)
     },
@@ -143,6 +152,7 @@ function checkout(orderId) {
     type: 'POST',
     url: serverUrl + `/api/users/${userId}/orders/${orderId}`,
     success: function (response) {
+      localStorage.removeItem('cart')
       $('body').html(response)
     },
     error: function (e) {

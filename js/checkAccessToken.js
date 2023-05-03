@@ -13,14 +13,11 @@ function checkAccessToken() {
   }
 
   if (userName === 'ADMIN') {
-    $('#authBtn').empty()
     $('#authBtn').append(`
       <li class="nav-item">
         <a class="nav-link" href="./admin.html"> 後台 </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="./index.html" onclick="logout()"> 登出 </a>
-      </li>
+      
     `)
   }
 }
