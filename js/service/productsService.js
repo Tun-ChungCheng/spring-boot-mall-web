@@ -97,7 +97,7 @@ function setProduct(response) {
     `)
   })
   $('.card').mouseover(function () {
-    $(this).css('backgroundColor', '#ffd6ba')
+    $(this).css('backgroundColor', '#81c3d7')
   })
   $('.card').mouseout(function () {
     $(this).css('backgroundColor', '#fff')
@@ -119,16 +119,16 @@ function setPages(response) {
 
   pagesEl.append(`
     <li id="previous" class="page-item">
-      <a class="page-link page-previous" style="background-color: #fff; font-size:24px; color: #000; cursor: pointer;" onclick="queryPreviousOrNext(${
+      <a class="page-link page-previous" style="background-color: #fff; font-size:24px; color: #000; cursor: pointer; px-2" onclick="queryPreviousOrNext(${
         parseInt(page) - 1
-      })">前一頁</a>
+      })"><i class="fa-solid fa-backward-step"></i></i></a>
     </li>
   `)
 
   for (let pageNum = 1; pageNum < totalPage + 1; pageNum++) {
     pagesEl.append(`
       <li class="page-item" data-bs-toggle="tooltip" data-bs-placement="top" title="${pageNum}">
-        <a id="page_${pageNum}" class="page-link" style="background-color: #fff; font-size:24px; color: #000; cursor: not-allowed;" onclick="queryPage(this)">${pageNum}</a>
+        <a id="page_${pageNum}" class="page-link page-num" style="background-color: #fff; font-size:24px; color: #000; cursor: pointer;" onclick="queryPage(this)">${pageNum}</a>
       </li>
     `)
   }
@@ -137,20 +137,28 @@ function setPages(response) {
     <li id="next" class="page-item">
       <a class="page-link page-next" style="background-color: #fff; font-size:24px; color: #000; cursor: pointer;" onclick="queryPreviousOrNext(${
         parseInt(page) + 1
-      })">後一頁</a>
+      })"><i class="fa-sharp fa-solid fa-forward-step"></i></a>
     </li>
   `)
-  $('.page-next').mouseover(function () {
-    $('.page-next').css('backgroundColor', '#ffd6ba')
+
+  $('.page-previous').mouseenter(function () {
+    $(this).css('backgroundColor', '#1282a2')
   })
-  $('.page-next').mouseout(function () {
-    $('.page-next').css('backgroundColor', '#fff')
+  $('.page-previous').mouseleave(function () {
+    $(this).css('backgroundColor', '#fff')
   })
-  $('.page-previous').mouseover(function () {
-    $('.page-previous').css('backgroundColor', '#ffd6ba')
+  $('.page-num').mouseenter(function () {
+    $(this).css('backgroundColor', '#1282a2')
   })
-  $('.page-previous').mouseout(function () {
-    $('.page-previous').css('backgroundColor', '#fff')
+
+  $('.page-num').mouseleave(function () {
+    $(this).css('backgroundColor', '#fff')
+  })
+  $('.page-next').mouseenter(function () {
+    $(this).css('backgroundColor', '#1282a2')
+  })
+  $('.page-next').mouseleave(function () {
+    $(this).css('backgroundColor', '#fff')
   })
 }
 
@@ -162,20 +170,33 @@ function queryPreviousOrNext(clickedPage) {
 function queryPage(button) {
   page = button.innerText
   getProducts(page)
+  $('.page-num').removeClass('active')
 }
 
-function stylePageButton(totalPage) {
-  $('#page_' + page).addClass('active')
+// 還沒加進去
+// function stylePageButton(totalPage) {
+//   $('#page_' + page).addClass('active');
 
-  if (page == 1 && page == totalPage) {
-    $('#previous').addClass('disabled')
-    $('#next').addClass('disabled')
-  } else if (page == 1) {
-    $('#previous').addClass('disabled')
-  } else if (page == totalPage) {
-    $('#next').addClass('disabled')
-  }
-}
+//   if (page == 1 && page == totalPage) {
+//     $('#previous').addClass('disabled')
+//     $('#next').addClass('disabled')
+//   } else if (page == 1) {
+//     $('#previous').addClass('disabled')
+//   } else if (page == totalPage) {
+//     $('#next').addClass('disabled')
+//   }
+// }
+
+// $('#searchBtn').click(function (event) {
+//   event.preventDefault()
+//   search = $('#search').val()
+//   getProducts(1)
+// })
+
+// $('#confirmOrderBtn').click(function (event) {
+//   event.preventDefault()
+//   checkout()
+// })
 
 function selectCategory(anchor) {
   if (anchor === undefined) {
