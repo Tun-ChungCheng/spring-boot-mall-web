@@ -1,4 +1,19 @@
 const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+const gameType = {
+  SURVIVAL: '生存',
+  LEISURE: '休閒',
+  CARD_GAME: '卡牌',
+  GAME_THEORY: '博弈',
+  UNIVERSE: '宇宙',
+  MIDDLE_AGES: '中世紀',
+  FANTASY: '奇幻',
+  RHYTHM_GAME: '音遊',
+  FPS: '射擊',
+  SPORTS: '運動',
+  RACING: '賽車',
+  HORROR: '恐怖',
+  VR_SIMULATION: 'VR模擬',
+}
 
 let productId = 0
 let product = {}
@@ -57,7 +72,7 @@ function setProduct(response) {
 
   $('#productName').text(product.productName)
   $('#description').text(product.description)
-  $('#category').text(product.category)
+  $('#category').text(gameType[product.category])
   $('#createdDate').text(product.createdDate)
   $('#price').text('$' + product.price)
   $('.image').attr('src', 'data:image/png;base64,' + product.image)
