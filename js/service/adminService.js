@@ -48,45 +48,19 @@ $(document)
 function showAllProducts() {
   $.ajax({
     type: 'GET',
-    url: serverUrl + `/api/products?page=${productPage}&size=${size}`,
+    url: `${serverUrl}/api/products?page=${productPage}&size=${size}`,
     success: function (response) {
       selectedAPI = 'products'
       totalPages = response.totalPages
-      main.empty()
       setProductTable(response)
     },
   })
 }
 
-function getCategories() {
-  $.ajax({
-    headers: {
-      Authorization: token,
-    },
-    type: 'GET',
-    url: serverUrl + '/api/products/categories',
-    success: function (response) {
-      setCategories(response)
-    },
-  })
-}
-
-function setCategories(response) {
-  const categories = response
-  const categoryEl = $('#category')
-  categoryEl.empty()
-
-  for (const category of categories) {
-    categoryEl.append(`
-      <option value="${category}">${gameType[category]}</option>
-    `)
-  }
-}
-
 function setProductTable(response) {
   products = response.results
 
-  main.append(`
+  main.empty().append(`
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover caption-top fw-bold">
         <caption>商品總覽</caption>
@@ -105,40 +79,65 @@ function setProductTable(response) {
           </tr>
         </thead>
         <tbody>
+          ${products
+            .map(
+              (product, index) =>
+                `<tr>
+                <th scope="row">${index + 1}</th>
+                <td><img width="64" height="64" src="data:image/png;base64,${
+                  product.image
+                }" style='object-fit: cover' /></td>
+                <td>${product.productName}</td>
+                <td>${product.price}</td>
+                <td>${product.stock}</td>
+                <td>${gameType[product.category]}</td>
+                <td>
+                  <span class="d-inline-block text-truncate" style="max-width: 100px;">
+                    ${product.description}
+                  </span>
+                </td>
+                <td>${product.lastModifiedDate}</td>
+                <td>${product.createdDate}</td>
+                <td><button id="${
+                  product.productId
+                }" class="btn btn-info" onclick="showProductForm(this)" data-bs-toggle="modal" data-bs-target="#productModal">
+                  修改
+                    </button>
+                </td>
+              </tr>
+              `
+            )
+            .join('')}
         </tbody>
       </table> 
     </div>
   `)
-
-  const tbodyEl = $('tbody')
-  products.map((product, index) => {
-    tbodyEl.append(`    
-      <tr>
-        <th scope="row">${index + 1}</th>
-        <td><img width="64" height="64" src="data:image/png;base64,${
-          product.image
-        }" style='object-fit: cover' /></td>
-        <td>${product.productName}</td>
-        <td>${product.price}</td>
-        <td>${product.stock}</td>
-        <td>${gameType[product.category]}</td>
-        <td>
-          <span class="d-inline-block text-truncate" style="max-width: 100px;">
-            ${product.description}
-          </span>
-        </td>
-        <td>${product.lastModifiedDate}</td>
-        <td>${product.createdDate}</td>
-        <td><button id="${
-          product.productId
-        }" class="btn btn-info" onclick="showProductForm(this)" data-bs-toggle="modal" data-bs-target="#productModal">
-          修改
-            </button>
-        </td>
-      </tr>
-    `)
-  })
   setPagination()
+}
+
+function getCategories() {
+  $.ajax({
+    headers: {
+      Authorization: token,
+    },
+    type: 'GET',
+    url: `${serverUrl}/api/products/categories`,
+    success: function (response) {
+      setCategories(response)
+    },
+  })
+}
+
+function setCategories(response) {
+  const categories = response
+  const categoryEl = $('#category')
+  categoryEl.empty()
+
+  for (const category of categories) {
+    categoryEl.append(`
+      <option value="${category}">${gameType[category]}</option>
+    `)
+  }
 }
 
 function showProductForm(button) {
@@ -258,7 +257,7 @@ function resetProductForm() {
   `)
 }
 
-function updateOrSaveProduct() {
+function updateProduct() {
   const formData = new FormData()
   formData.append('productName', $('#productName').val())
   formData.append('price', $('#price').val())
@@ -267,17 +266,17 @@ function updateOrSaveProduct() {
   formData.append('description', $('#description').val())
   formData.append('image', $('#image')[0].files[0])
 
-  selectedProduct != 0
+  parseInt(selectedProduct) !== 0
     ? $.ajax({
         headers: {
           Authorization: token,
         },
         type: 'PUT',
-        url: serverUrl + `/api/products/${selectedProduct}`,
+        url: `${serverUrl}/api/products/${selectedProduct}`,
         processData: false,
         contentType: false,
         data: formData,
-        success: function (rs) {
+        success: function () {
           showToast('更新商品成功!')
           showAllProducts()
         },
@@ -290,7 +289,7 @@ function updateOrSaveProduct() {
           Authorization: token,
         },
         type: 'POST',
-        url: serverUrl + `/api/products`,
+        url: `${serverUrl}/api/products`,
         processData: false,
         contentType: false,
         data: formData,
@@ -310,7 +309,7 @@ function deleteProduct() {
       Authorization: token,
     },
     type: 'DELETE',
-    url: serverUrl + `/api/products/${selectedProduct}`,
+    url: `${serverUrl}/api/products/${selectedProduct}`,
     success: function () {
       showToast('刪除商品成功!')
       showAllProducts()
@@ -329,11 +328,10 @@ function showAllUsers() {
       Authorization: token,
     },
     type: 'GET',
-    url: serverUrl + `/api/users?page=${userPage}&size=${size}`,
+    url: `${serverUrl}/api/users?page=${userPage}&size=${size}`,
     success: function (response) {
       selectedAPI = 'users'
       totalPages = response.totalPages
-      main.empty()
       setUserTable(response)
     },
   })
@@ -341,7 +339,7 @@ function showAllUsers() {
 
 function setUserTable(response) {
   users = response.results
-  main.append(`
+  main.empty().append(`
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover caption-top fw-bold">
         <caption>用戶總覽</caption>
@@ -356,23 +354,25 @@ function setUserTable(response) {
           </tr>
         </thead>
         <tbody>
+          ${users
+            .map(
+              (user, index) =>
+                `    
+              <tr>
+                <th scope="row">${index + 1}</th>
+                <td>${user.email}</td>
+                <td>${user.userName}</td>
+                <td>${role[user.role]}</td>
+                <td>${user.lastModifiedDate}</td>
+                <td>${user.createdDate}</td>
+              </tr>
+              `
+            )
+            .join('')}
         </tbody>
       </table> 
     </div>
   `)
-  const tbodyEl = $('tbody')
-  users.map((user, index) => {
-    tbodyEl.append(`    
-      <tr>
-        <th scope="row">${index + 1}</th>
-        <td>${user.email}</td>
-        <td>${user.userName}</td>
-        <td>${role[user.role]}</td>
-        <td>${user.lastModifiedDate}</td>
-        <td>${user.createdDate}</td>
-      </tr>
-    `)
-  })
   setPagination()
 }
 
@@ -384,11 +384,10 @@ function showAllOrders() {
       Authorization: token,
     },
     type: 'GET',
-    url: serverUrl + `/api/users/all/orders?page=${orderPage}&size=${size}`,
+    url: `${serverUrl}/api/users/all/orders?page=${orderPage}&size=${size}`,
     success: function (response) {
-      selectedAPI = 'orders'
       totalPages = response.totalPages
-      main.empty()
+      selectedAPI = 'orders'
       setOrderTable(response)
     },
   })
@@ -397,7 +396,7 @@ function showAllOrders() {
 function setOrderTable(response) {
   const orders = response.results
 
-  main.append(`
+  main.empty().append(`
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover caption-top fw-bold">
         <caption>訂單總覽</caption>
@@ -414,68 +413,72 @@ function setOrderTable(response) {
           </tr>
         </thead>
         <tbody>
+          ${orders
+            .map(
+              (order, index) =>
+                `    
+              <tr>
+                <th scope="row">${index + 1}</th>
+                <td>${order.uuid}</td>
+                <td>${order.user.userName}</td>
+                <td>${order.totalAmount}</td>
+                <td>${
+                  order.paymentStatus === 'UNPAY' ? '未付款' : '已付款'
+                }</td>
+                <td>${
+                  !order.paymentDate ? '待交易完成後生成' : order.paymentDate
+                }</td>
+                <td>${order.createdDate}</td>
+                <td>
+                  <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#uuid${
+                    order.uuid
+                  }" aria-expanded="false" aria-controls="uuid${order.uuid}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-down-square-fill" viewBox="0 0 16 16">
+                      <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <tr class="bg-tertiary">
+                <td colspan="8">
+                  <div class="collapse" id="uuid${order.uuid}">
+                    <table
+                      class="table table-striped table-bordered table-hover fw-bold"
+                    >
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">名稱</th>
+                          <th scope="col">數量</th>
+                          <th scope="col">價格</th>
+                        </tr>
+                      </thead>
+                
+                      <tbody>
+                        ${order.orderItems
+                          .map(
+                            (orderItem, index) =>
+                              `<tr>
+                                <th scope="row">${index + 1}</th>
+                                <td>${orderItem.product.productName}</td>
+                                <td>${orderItem.quantity}</td>
+                                <td>${orderItem.amount}</td>
+                              </tr>`
+                          )
+                          .join('')}
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+                `
+            )
+            .join('')}
         </tbody>
       </table> 
     </div>
   `)
-
-  const tbodyEl = $('tbody')
-
-  orders.map((order, index) => {
-    tbodyEl.append(`    
-      <tr>
-        <th scope="row">${index + 1}</th>
-        <td>${order.uuid}</td>
-        <td>${order.user.userName}</td>
-        <td>${order.totalAmount}</td>
-        <td>${order.paymentStatus === 'UNPAY' ? '未付款' : '已付款'}</td>
-        <td>${!order.paymentDate ? '待交易完成後生成' : order.paymentDate}</td>
-        <td>${order.createdDate}</td>
-        <td>
-          <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#uuid${
-            order.uuid
-          }" aria-expanded="false" aria-controls="uuid${order.uuid}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-down-square-fill" viewBox="0 0 16 16">
-              <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"/>
-            </svg>
-          </button>
-        </td>
-      </tr>
-      <tr class="bg-tertiary">
-        <td colspan="8">
-          <div class="collapse" id="uuid${order.uuid}">
-            <table
-              class="table table-striped table-bordered table-hover fw-bold"
-            >
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">名稱</th>
-                  <th scope="col">數量</th>
-                  <th scope="col">價格</th>
-                </tr>
-              </thead>
-        
-              <tbody>
-                ${order.orderItems
-                  .map(
-                    (orderItem, index) =>
-                      `<tr>
-                        <th scope="row">${index + 1}</th>
-                        <td>${orderItem.product.productName}</td>
-                        <td>${orderItem.quantity}</td>
-                        <td>${orderItem.amount}</td>
-                      </tr>`
-                  )
-                  .join('')}
-              </tbody>
-            </table>
-          </div>
-        </td>
-      </tr>
-    `)
-    setPagination()
-  })
+  setPagination()
 }
 
 // -----------------------------------------------------------------------------
