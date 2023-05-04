@@ -38,7 +38,7 @@
         <div class="row">
           <div class="col col-12 col-lg-8">
             <div class="title my-3">
-              <h1 id="productName"></h1>
+              <h1 id="productName" class="fw-bold">GameInfo</h1>
             </div>
             <div
               id="carouselExampleIndicators"
@@ -70,7 +70,7 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img
-                    class="image d-block"
+                    class="image d-block carousel-img"
                     src="data:image/png;base64,${
                     product.image
                   }"
@@ -79,7 +79,7 @@
                 </div>
                 <div class="carousel-item">
                   <img
-                    class="image d-block"
+                    class="image d-block carousel-img"
                     src="data:image/png;base64,${
                     product.image
                   }"
@@ -88,7 +88,7 @@
                 </div>
                 <div class="carousel-item">
                   <img
-                    class="image d-block"
+                    class="image d-block carousel-img"
                     src="data:image/png;base64,${
                     product.image
                   }"
@@ -104,7 +104,7 @@
                 data-bs-slide="prev"
               >
                 <span
-                  class="carousel-control-prev-icon"
+                  class="carousel-control-icon carousel-control-prev-icon"
                   aria-hidden="true"
                 ></span>
                 <span class="visually-hidden">Previous</span>
@@ -116,7 +116,7 @@
                 data-bs-slide="next"
               >
                 <span
-                  class="carousel-control-next-icon"
+                  class="carousel-control-icon carousel-control-next-icon"
                   aria-hidden="true"
                 ></span>
                 <span class="visually-hidden">Next</span>
@@ -127,7 +127,7 @@
             </div>
 
             <div class="d-flex my-3">
-              <div class="me-2">類型</div>
+              <div class="me-2 fw-bold">類型</div>
               <div>
                 <span class="mx-1"><a id="category"></a></span>
               </div>
@@ -138,10 +138,10 @@
               <div class="col-12 text-center p-4">
                 <img class="image" style="width: 80%; padding: 20px" />
               </div>
-              <div class="col-12 text-center">
+              <div class="col-12 text-center p-3">
                 <button
-                  class="btn btn-outline-dark d-block m-2"
-                  onclick="buyNow()"
+                  href="https://www.example.com"
+                  class="btn btn-outline-dark d-block fw-bold w-100 my-2"
                 >
                   購買&nbsp;&nbsp;&nbsp;<i
                     class="fa-regular fa-credit-card"
@@ -149,7 +149,7 @@
                 </button>
                 <button
                   id="addToCartBtn"
-                  class="btn btn-outline-dark d-block m-2"
+                  class="btn btn-outline-dark d-block fw-bold w-100 my-2"
                   onclick="addToCart()"
                 >
                   加入購物車&nbsp;&nbsp;&nbsp;<i
@@ -158,25 +158,25 @@
                 </button>
               </div>
               <div class="col-12 py-3">
-                <div class="row">
-                  <div class="col-12 d-flex justify-content-between">
-                    <div>價格</div>
+                <div class="row m-1" style="border: 1px solid #000">
+                  <div class="col-12 items d-flex justify-content-between">
+                    <div class="fw-bold">價格</div>
                     <div id="price">$100</div>
                   </div>
-                  <div class="col-12 d-flex justify-content-between">
-                    <div>開發者</div>
+                  <div class="col-12 items d-flex justify-content-between">
+                    <div class="fw-bold">開發者</div>
                     <div>GameHub</div>
                   </div>
-                  <div class="col-12 d-flex justify-content-between">
-                    <div>發行商</div>
+                  <div class="col-12 items d-flex justify-content-between">
+                    <div class="fw-bold">發行商</div>
                     <div>GameHub</div>
                   </div>
-                  <div class="col-12 d-flex justify-content-between">
-                    <div>上市日期</div>
-                    <div id="createdDate"></div>
+                  <div class="col-12 items d-flex justify-content-between">
+                    <div class="fw-bold">上市日期</div>
+                    <div id="createdDate">XXXX年</div>
                   </div>
-                  <div class="col-12 d-flex justify-content-between">
-                    <div>平台</div>
+                  <div class="col-12 items d-flex justify-content-between">
+                    <div class="fw-bold">平台</div>
                     <div>
                       <i class="fa-brands fa-windows"></i>
                       <i class="fa-brands fa-android"></i>
