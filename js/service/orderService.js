@@ -60,18 +60,43 @@ function setOrderTable(response) {
       <tr class="bg-tertiary">
         <td colspan="7">
           <div class="collapse" id="uuid${order.uuid}">
+            <table
+              class="table table-striped table-bordered table-hover fw-bold"
+            >
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">名稱</th>
+                  <th scope="col">數量</th>
+                  <th scope="col">價格</th>
+                </tr>
+              </thead>
+        
+              <tbody>
+                ${order.orderItems
+                  .map(
+                    (orderItem, index) =>
+                      `<tr>
+                        <th scope="row">${index + 1}</th>
+                        <td>${orderItem.product.productName}</td>
+                        <td>${orderItem.quantity}</td>
+                        <td>${orderItem.amount}</td>
+                      </tr>`
+                  )
+                  .join('')}
+              </tbody>
+            </table>
           </div>
         </td>
       </tr>
     `)
-    setOrderItemTable(order)
   })
 }
 
 function checkout(button) {
   const orderId = button.id
 
-  if(token === null) window.location.href='./auth.html' 
+  if (token === null) window.location.href = './auth.html'
 
   $.ajax({
     headers: {
@@ -86,37 +111,5 @@ function checkout(button) {
     error: function (e) {
       console.log(e)
     },
-  })
-}
-
-function setOrderItemTable(order) {
-  const orderItems = order.orderItems
-
-  $(`#uuid${order.uuid}`).append(`
-    <table
-      class="table table-striped table-bordered table-hover fw-bold"
-    >
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">名稱</th>
-          <th scope="col">數量</th>
-          <th scope="col">價格</th>
-        </tr>
-      </thead>
-
-      <tbody id="orderItem${order.uuid}"></tbody>
-    </table>
-  `)
-
-  orderItems.map((orderItem, index) => {
-    $(`#orderItem${order.uuid}`).append(`
-      <tr>
-        <th scope="row">${index + 1}</th>
-        <td>${orderItem.product.productName}</td>
-        <td>${orderItem.quantity}</td>
-        <td>${orderItem.amount}</td>
-      </tr>
-    `)
   })
 }

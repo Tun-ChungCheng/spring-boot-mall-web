@@ -1,5 +1,10 @@
 const token = localStorage.getItem('accessToken')
 const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+const role = {
+  ROLE_ADMIN: '管理員',
+  ROLE_MEMBER: '會員',
+  ROLE_UNVERIFIED: '未驗證',
+}
 
 let products = []
 let main = $('main')
@@ -8,7 +13,7 @@ let selectedProduct = 0 // 0 代表新增
 $(document)
   .ready(function () {
     checkAccessToken()
-    $('#loadingSpinner').hide()
+    showAllUsers()
   })
   .ajaxStart(function () {
     $('#loadingSpinner').show()
@@ -16,6 +21,19 @@ $(document)
   .ajaxStop(function () {
     $('#loadingSpinner').hide()
   })
+
+// -----------------------------------------------------------------------------
+
+function showAllProducts() {
+  $.ajax({
+    type: 'GET',
+    url: serverUrl + '/api/products?page=0&size=100',
+    success: function (response) {
+      main.empty()
+      setProductTable(response)
+    },
+  })
+}
 
 function getCategories() {
   $.ajax({
@@ -40,19 +58,6 @@ function setCategories(response) {
       <option value="${category}">${category}</option>
     `)
   }
-}
-
-function showAllOrders() {}
-
-function showAllProducts() {
-  $.ajax({
-    type: 'GET',
-    url: serverUrl + '/api/products?page=0&size=10',
-    success: function (response) {
-      main.empty()
-      setProductTable(response)
-    },
-  })
 }
 
 function setProductTable(response) {
@@ -293,4 +298,61 @@ function deleteProduct() {
   })
 }
 
-function showAllCustomers() {}
+// -----------------------------------------------------------------------------
+
+function showAllUsers() {
+  $.ajax({
+    headers: {
+      Authorization: token,
+    },
+    type: 'GET',
+    url: serverUrl + '/api/users?page=0&size=100',
+    success: function (response) {
+      main.empty()
+      setUserTable(response)
+    },
+  })
+}
+
+function setUserTable(response) {
+  users = response.results
+  console.log(users)
+  main.append(`
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover caption-top fw-bold">
+        <caption>用戶總覽</caption>
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">信箱</th>
+            <th scope="col">名稱</th>
+            <th scope="col">權限</th>
+            <th scope="col">上次登入</th>
+            <th scope="col">建立日期</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table> 
+    </div>
+  `)
+
+  const tbodyEl = $('tbody')
+  users.map((user, index) => {
+    tbodyEl.append(`    
+      <tr>
+        <th scope="row">${index + 1}</th>
+        <td>${user.email}</td>
+        <td>${user.userName}</td>
+        <td>${role[user.role]}</td>
+        <td>${user.lastModifiedDate}</td>
+        <td>${user.createdDate}</td>
+        
+      </tr>
+    `)
+  })
+}
+
+// -----------------------------------------------------------------------------
+
+function showAllOrders() {}
