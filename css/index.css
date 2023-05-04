@@ -12,8 +12,13 @@ video {
   min-height: 100%;
 }
 
+.title-text {
+  font-size: 72px;
+  -webkit-text-stroke: 3px #f1f1f1;
+}
+
 #auth-btn {
-  border-bottom: 3px solid transport;
+  border-bottom: 3px solid transparent;
 }
 
 #auth-btn:hover {

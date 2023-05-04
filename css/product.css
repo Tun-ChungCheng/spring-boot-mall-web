@@ -18,6 +18,7 @@
 .carousel:hover .carousel-indicators {
   opacity: 1;
 }
+
 .carousel-control-icon {
   scale: 2;
 }
