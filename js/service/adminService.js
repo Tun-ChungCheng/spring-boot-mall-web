@@ -1,5 +1,6 @@
 const token = localStorage.getItem('accessToken')
 const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+const size = 5
 const role = {
   ROLE_ADMIN: '管理員',
   ROLE_MEMBER: '會員',
@@ -24,6 +25,11 @@ const gameType = {
 let products = []
 let main = $('main')
 let selectedProduct = 0 // 0 代表新增
+let totalPages = 0
+let productPage = 0
+let userPage = 0
+let orderPage = 0
+let selectedAPI = ''
 
 $(document)
   .ready(function () {
@@ -42,8 +48,10 @@ $(document)
 function showAllProducts() {
   $.ajax({
     type: 'GET',
-    url: serverUrl + '/api/products?page=0&size=100',
+    url: serverUrl + `/api/products?page=${productPage}&size=${size}`,
     success: function (response) {
+      selectedAPI = 'products'
+      totalPages = response.totalPages
       main.empty()
       setProductTable(response)
     },
@@ -130,6 +138,7 @@ function setProductTable(response) {
       </tr>
     `)
   })
+  setPagination()
 }
 
 function showProductForm(button) {
@@ -269,7 +278,6 @@ function updateOrSaveProduct() {
         contentType: false,
         data: formData,
         success: function (rs) {
-          console.log(rs)
           showToast('更新商品成功!')
           showAllProducts()
         },
@@ -321,8 +329,10 @@ function showAllUsers() {
       Authorization: token,
     },
     type: 'GET',
-    url: serverUrl + '/api/users?page=0&size=100',
+    url: serverUrl + `/api/users?page=${userPage}&size=${size}`,
     success: function (response) {
+      selectedAPI = 'users'
+      totalPages = response.totalPages
       main.empty()
       setUserTable(response)
     },
@@ -331,7 +341,6 @@ function showAllUsers() {
 
 function setUserTable(response) {
   users = response.results
-  console.log(users)
   main.append(`
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover caption-top fw-bold">
@@ -351,7 +360,6 @@ function setUserTable(response) {
       </table> 
     </div>
   `)
-
   const tbodyEl = $('tbody')
   users.map((user, index) => {
     tbodyEl.append(`    
@@ -362,12 +370,143 @@ function setUserTable(response) {
         <td>${role[user.role]}</td>
         <td>${user.lastModifiedDate}</td>
         <td>${user.createdDate}</td>
-        
       </tr>
     `)
+  })
+  setPagination()
+}
+
+// -----------------------------------------------------------------------------
+
+function showAllOrders() {
+  $.ajax({
+    headers: {
+      Authorization: token,
+    },
+    type: 'GET',
+    url: serverUrl + `/api/users/all/orders?page=${orderPage}&size=${size}`,
+    success: function (response) {
+      selectedAPI = 'orders'
+      totalPages = response.totalPages
+      main.empty()
+      setOrderTable(response)
+    },
+  })
+}
+
+function setOrderTable(response) {
+  const orders = response.results
+
+  main.append(`
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover caption-top fw-bold">
+        <caption>訂單總覽</caption>
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">編號</th>
+            <th scope="col">用戶</th>
+            <th scope="col">總價</th>
+            <th scope="col">狀態</th>
+            <th scope="col">交易日期</th>
+            <th scope="col">建立日期</th>
+            <th scope="col">細節</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table> 
+    </div>
+  `)
+
+  const tbodyEl = $('tbody')
+
+  orders.map((order, index) => {
+    tbodyEl.append(`    
+      <tr>
+        <th scope="row">${index + 1}</th>
+        <td>${order.uuid}</td>
+        <td>${order.user.userName}</td>
+        <td>${order.totalAmount}</td>
+        <td>${order.paymentStatus === 'UNPAY' ? '未付款' : '已付款'}</td>
+        <td>${!order.paymentDate ? '待交易完成後生成' : order.paymentDate}</td>
+        <td>${order.createdDate}</td>
+        <td>
+          <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#uuid${
+            order.uuid
+          }" aria-expanded="false" aria-controls="uuid${order.uuid}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-down-square-fill" viewBox="0 0 16 16">
+              <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+      <tr class="bg-tertiary">
+        <td colspan="8">
+          <div class="collapse" id="uuid${order.uuid}">
+            <table
+              class="table table-striped table-bordered table-hover fw-bold"
+            >
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">名稱</th>
+                  <th scope="col">數量</th>
+                  <th scope="col">價格</th>
+                </tr>
+              </thead>
+        
+              <tbody>
+                ${order.orderItems
+                  .map(
+                    (orderItem, index) =>
+                      `<tr>
+                        <th scope="row">${index + 1}</th>
+                        <td>${orderItem.product.productName}</td>
+                        <td>${orderItem.quantity}</td>
+                        <td>${orderItem.amount}</td>
+                      </tr>`
+                  )
+                  .join('')}
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+    `)
+    setPagination()
   })
 }
 
 // -----------------------------------------------------------------------------
 
-function showAllOrders() {}
+function setPagination() {
+  const paginationEl = $('.pagination')
+
+  paginationEl.empty()
+  for (let i = 1; i < totalPages + 1; i++) {
+    paginationEl.append(`
+      <li id="page${i}" class="page-item" onclick="selectPage(this)">
+        <span class="page-link">${i}</span>
+      </li> 
+    `)
+  }
+}
+
+function selectPage(li) {
+  const liEl = li
+  switch (selectedAPI) {
+    case 'products':
+      productPage = liEl.id.substring(4)
+      showAllProducts()
+      break
+    case 'users':
+      userPage = liEl.id.substring(4)
+      showAllUsers()
+      break
+    case 'orders':
+      orderPage = liEl.id.substring(4)
+      showAllOrders()
+      break
+  }
+}

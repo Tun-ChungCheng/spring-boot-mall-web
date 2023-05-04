@@ -12,11 +12,18 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./css/products.css" />
     <link rel="stylesheet" href="./css/loadingSpinner.css" />
+    <link rel="stylesheet" href="./css/products.css" />
 
     <script src="./js/includeHTML.js"></script>
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
@@ -168,15 +175,6 @@
         </div>
       </div>
 
-      <!-- <form class="d-flex w-50">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form> -->
       <!-- 讀取圖示 -->
       <div id="loadingSpinner" class="pt-5">
         <div class="spinner-border text-primary" role="status"></div>
@@ -199,6 +197,7 @@
       </div>
       <!-- 商品卡與分頁 -->
       <div w3-include-html="./component/footer.html"></div>
+      <div id="pagination-demo"></div>
     </main>
 
     <script>

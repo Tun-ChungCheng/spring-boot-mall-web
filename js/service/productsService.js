@@ -1,5 +1,5 @@
 const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
-const size = 6
+const size = 4
 
 let products = []
 let cart = []

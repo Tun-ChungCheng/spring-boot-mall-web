@@ -53,14 +53,17 @@ html.sr .load-hidden {
 
 #MMORPGTitle {
   font-size: 50px;
+  color: #0496ff;
   -webkit-text-stroke: 6px #0496ff;
 }
 #RPGTitle {
   font-size: 50px;
+  color: #f6aa1c;
   -webkit-text-stroke: 6px #f6aa1c;
 }
 #FPSTitle {
   font-size: 50px;
+  color: #ef233c;
   -webkit-text-stroke: 6px #ef233c;
 }
 .carousel-item {
