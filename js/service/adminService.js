@@ -5,6 +5,21 @@ const role = {
   ROLE_MEMBER: '會員',
   ROLE_UNVERIFIED: '未驗證',
 }
+const gameType = {
+  SURVIVAL: '生存',
+  LEISURE: '休閒',
+  CARD_GAME: '卡牌',
+  GAME_THEORY: '博弈',
+  UNIVERSE: '宇宙',
+  MIDDLE_AGES: '中世紀',
+  FANTASY: '奇幻',
+  RHYTHM_GAME: '音遊',
+  FPS: '射擊',
+  SPORTS: '運動',
+  RACING: '賽車',
+  HORROR: '恐怖',
+  VR_SIMULATION: 'VR模擬',
+}
 
 let products = []
 let main = $('main')
@@ -55,7 +70,7 @@ function setCategories(response) {
 
   for (const category of categories) {
     categoryEl.append(`
-      <option value="${category}">${category}</option>
+      <option value="${category}">${gameType[category]}</option>
     `)
   }
 }
@@ -98,7 +113,7 @@ function setProductTable(response) {
         <td>${product.productName}</td>
         <td>${product.price}</td>
         <td>${product.stock}</td>
-        <td>${product.category}</td>
+        <td>${gameType[product.category]}</td>
         <td>
           <span class="d-inline-block text-truncate" style="max-width: 100px;">
             ${product.description}
