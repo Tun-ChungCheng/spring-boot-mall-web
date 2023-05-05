@@ -194,31 +194,6 @@ function queryPage(button) {
   $('.page-num').removeClass('active')
 }
 
-// 還沒加進去
-// function stylePageButton(totalPage) {
-//   $('#page_' + page).addClass('active');
-
-//   if (page == 1 && page == totalPage) {
-//     $('#previous').addClass('disabled')
-//     $('#next').addClass('disabled')
-//   } else if (page == 1) {
-//     $('#previous').addClass('disabled')
-//   } else if (page == totalPage) {
-//     $('#next').addClass('disabled')
-//   }
-// }
-
-// $('#searchBtn').click(function (event) {
-//   event.preventDefault()
-//   search = $('#search').val()
-//   getProducts(1)
-// })
-
-// $('#confirmOrderBtn').click(function (event) {
-//   event.preventDefault()
-//   checkout()
-// })
-
 function selectCategory(anchor) {
   if (anchor === undefined) {
     $('#categoryBtn').text('ALL')

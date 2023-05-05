@@ -27,7 +27,6 @@
     />
 
     <link rel="stylesheet" href="./css/auth.css" />
-    <link rel="stylesheet" href="./css/loadingSpinner.css" />
   </head>
 
   <body>
@@ -43,11 +42,11 @@
       style="height: 100vh"
     >
       <div
-        class="container py-3 w-auto"
-        style="background: hsla(0, 0%, 100%, 0.3); border-radius: 5px"
+        class="container p-3 w-auto"
+        style="background: #d7e3fc94; border-radius: 5px"
       >
         <!-- 回形象頁按鈕 -->
-        <a class="d-flex justify-content-center pb-3" href="./index.html">
+        <a class="d-flex justify-content-center p-2" href="./index.html">
           <img
             height="40"
             src="./public/gamehub.png"
@@ -57,7 +56,7 @@
         </a>
         <!-- 回形象頁按鈕 -->
         <!-- 導覽內容 -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs my-4" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <button
               class="nav-link active"
@@ -104,7 +103,7 @@
         <!-- 導覽內容 -->
 
         <!-- 頁籤內容 -->
-        <div class="tab-content mt-5" id="myTabContent">
+        <div class="tab-content mt-4" id="myTabContent">
           <!-- 登入表單 -->
           <div
             class="tab-pane fade show active"
@@ -119,8 +118,7 @@
                     type="email"
                     class="form-control"
                     id="loginEmail"
-                    placeholder="Email"
-                    value="Member@gamehub"
+                    placeholder="name@example.com"
                   />
                   <label for="loginEmail">電子郵件</label>
                 </div>
@@ -132,7 +130,6 @@
                     class="form-control"
                     id="loginPassword"
                     placeholder="Password"
-                    value="123"
                   />
                   <label for="loginPassword">密碼</label>
                 </div>
@@ -141,7 +138,7 @@
                 <button
                   id="loginBtn"
                   type="submit"
-                  class="btn btn-primary mt-5"
+                  class="btn btn-primary btn-bottom mt-3"
                 >
                   登入
                 </button>
@@ -195,7 +192,7 @@
                 <button
                   id="registerBtn"
                   type="submit"
-                  class="btn btn-primary mt-5"
+                  class="btn btn-primary btn-bottom mt-3"
                 >
                   註冊
                 </button>
@@ -226,7 +223,7 @@
                 <button
                   id="forgetPasswordBtn"
                   type="submit"
-                  class="btn btn-primary mt-5"
+                  class="btn btn-primary btn-bottom mt-3"
                 >
                   忘記密碼
                 </button>
