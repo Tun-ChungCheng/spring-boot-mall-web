@@ -52,7 +52,7 @@ function setCart() {
                 <h4>${cartItem.productName}</h4>
               </div>
               <div class="col-12 col-lg-6 price">
-                <h5>NT${cartItem.amount * cartItem.quantity}</h5>
+                <h5>$${cartItem.amount * cartItem.quantity}</h5>
               </div>
             </div>
           </div>
