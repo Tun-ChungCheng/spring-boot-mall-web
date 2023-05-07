@@ -22,7 +22,7 @@ function getOrders() {
       Authorization: token,
     },
     type: 'GET',
-    url: serverUrl + `/api/users/${userId}/orders?size=5`,
+    url: `${serverUrl}/api/users/${userId}/orders?size=5`,
     success: function (response) {
       console.log(response)
       setOrderTable(response)
@@ -104,12 +104,10 @@ function checkout(button) {
     },
     contentType: 'application/json',
     type: 'POST',
-    url: serverUrl + `/api/users/${userId}/orders/${orderId}`,
+    url: `${serverUrl}/api/users/${userId}/orders/${orderId}`,
     success: function (response) {
       $('body').html(response)
     },
-    error: function (e) {
-      console.log(e)
-    },
+    error: function (e) {},
   })
 }

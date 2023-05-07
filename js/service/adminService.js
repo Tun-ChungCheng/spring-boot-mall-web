@@ -281,7 +281,7 @@ function updateProduct() {
           showAllProducts()
         },
         error: function () {
-          showToast('更新商品失敗!')
+          showToast($('#image')[0].files[0] ? '更新商品失敗!' : '未加入圖片!')
         },
       })
     : $.ajax({
@@ -298,7 +298,7 @@ function updateProduct() {
           showAllProducts()
         },
         error: function () {
-          showToast('新增商品失敗!')
+          showToast($('#image')[0].files[0] ? '新增商品失敗!' : '未加入圖片!')
         },
       })
 }

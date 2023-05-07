@@ -97,3 +97,7 @@ function forgetPassword() {
     },
   })
 }
+
+function googleLogin() {
+  window.location.href = `${serverUrl}/redirectToGoogle`
+}

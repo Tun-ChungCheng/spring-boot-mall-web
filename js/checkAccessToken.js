@@ -1,5 +1,16 @@
 function checkAccessToken() {
-  const token = localStorage.getItem('accessToken')
+  const url = new URL(location.href)
+  let token = localStorage.getItem('accessToken')
+
+  if (url.searchParams.get('token')) {
+    token = `Bearer ${url.searchParams.get('token')}`
+    localStorage.setItem('accessToken', token)
+  }
+
+  if (url.searchParams.get('userId')) {
+    const userId = url.searchParams.get('userId')
+    localStorage.setItem('userId', userId)
+  }
 
   console.log(token)
   if (token === null) {
