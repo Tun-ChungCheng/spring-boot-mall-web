@@ -58,14 +58,13 @@ function getCategories() {
 function setCategories(response) {
   const categories = response
   const categoryMenuEl = $('#categoryMenu')
-
   categoryMenuEl.empty()
   categoryMenuEl.append(`
       <li><a class="dropdown-item" onclick="selectCategory()">ALL</a></li>
     `)
   for (const category of categories) {
     categoryMenuEl.append(`
-      <li><a class="dropdown-item" onclick="selectCategory(this)">${category}</a></li>
+      <li><a class="dropdown-item" onclick="selectCategory(this)">${gameType[category]}</a></li>
     `)
   }
 }
@@ -89,6 +88,7 @@ function setProduct(response) {
   cardsEl.empty()
 
   products.map((product) => {
+    console.log(product)
     cardsEl.append(`
     <div class="col">
       <div id="${
@@ -118,7 +118,7 @@ function setProduct(response) {
     `)
   })
   $('.card').mouseover(function () {
-    $(this).css('backgroundColor', '#81c3d7')
+    $(this).css('backgroundColor', '#fdf0d5')
   })
   $('.card').mouseout(function () {
     $(this).css('backgroundColor', '#fff')
@@ -133,11 +133,8 @@ function redirectProductPage(divEl) {
 
 function setPages(response) {
   const totalPage = response.totalPages
-
   const pagesEl = $('#pages')
-
   pagesEl.empty()
-
   pagesEl.append(`
     <li id="previous" class="page-item">
       <a class="page-link page-previous" style="background-color: #fff; font-size:24px; color: #000; cursor: pointer; px-2" onclick="queryPreviousOrNext(${
@@ -163,20 +160,20 @@ function setPages(response) {
   `)
 
   $('.page-previous').mouseenter(function () {
-    $(this).css('backgroundColor', '#1282a2')
+    $(this).css('backgroundColor', '#4cc9f0')
   })
   $('.page-previous').mouseleave(function () {
     $(this).css('backgroundColor', '#fff')
   })
   $('.page-num').mouseenter(function () {
-    $(this).css('backgroundColor', '#1282a2')
+    $(this).css('backgroundColor', '#4cc9f0')
   })
 
   $('.page-num').mouseleave(function () {
     $(this).css('backgroundColor', '#fff')
   })
   $('.page-next').mouseenter(function () {
-    $(this).css('backgroundColor', '#1282a2')
+    $(this).css('backgroundColor', '#4cc9f0')
   })
   $('.page-next').mouseleave(function () {
     $(this).css('backgroundColor', '#fff')
@@ -195,11 +192,78 @@ function queryPage(button) {
 }
 
 function selectCategory(anchor) {
+  console.log(anchor)
   if (anchor === undefined) {
-    $('#categoryBtn').text('ALL')
+    $('#categoryBtn').text('全部')
     category = ''
+    document.getElementById("categoryName").innerText = "ALL";
+    categorySearch(category);
   } else {
     $('#categoryBtn').text(anchor.innerText)
     category = anchor.innerText
+    let categoryKey = Object.keys(gameType).find(key => gameType[key] === category)
+    document.getElementById("categoryName").innerText = gameType[categoryKey];
+    categorySearch(categoryKey);
+  }
+
+}
+
+// 分類搜尋 若關鍵字搜尋欄位中有值 加進來一起判斷 沒有就只搜尋分類
+function categorySearch(category){
+  const searchValue = document.querySelector('input[type="search"]').value
+  if ( searchValue !== ''){
+    $.ajax({
+      type: 'GET',
+      url: serverUrl + `/api/products?page=1&size=${size}&search=${searchValue}&category=${category}`,
+      success: function (response) {
+        console.log(response)
+        setProduct(response)
+        setPages(response)
+        page = 1
+        document.querySelector('input[type="search"]').value = '';
+        bottomElement.scrollTop = bottomElement.scrollHeight - bottomElement.clientHeight;
+      },
+    })
+  } else{
+    $.ajax({
+      type: 'GET',
+      url: serverUrl + `/api/products?page=1&size=${size}&category=${category}`,
+      success: function (response) {
+        console.log(response)
+        setProduct(response)
+        setPages(response)
+        page = 1
+        document.querySelector('input[type="search"]').value = '';
+        bottomElement.scrollTop = bottomElement.scrollHeight - bottomElement.clientHeight;
+      },
+    })
   }
 }
+
+//底部位置
+const bottomElement = document.documentElement;
+
+function keySearch() {
+  const searchValue = document.querySelector('input[type="search"]').value;
+  $.ajax({
+    type: 'GET',
+    url: serverUrl + `/api/products?page=1&size=${size}&search=${searchValue}`,
+    success: function (response) {
+      console.log(response)
+      setProduct(response)
+      setPages(response)
+      page = 1
+      document.querySelector('input[type="search"]').value = '';
+      bottomElement.scrollTop = bottomElement.scrollHeight - bottomElement.clientHeight;
+    },
+  })
+}
+
+//空白鍵輸入執行搜尋
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) {
+    keySearch();
+  }
+});
+

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>遊戲世界，你掌控。</title>
+    <link rel="icon" href="./public/hub.png" type="image/x-icon">
 
     <!-- Bootstrap core CSS -->
     <link
@@ -135,6 +136,30 @@
                 </div>
               </div>
               <div class="text-center">
+                <div class="row p-2">
+                  <div class="col-6">
+                    <button
+                    class="btn btn-primary btn-top btn-top-left mt-1"
+                    onclick="memberLogin()"
+                    type="button"
+                  >
+                    會員登入
+                  </button>
+                  </div>
+                  <div class="col-6">
+                    <button
+                    class="btn btn-primary btn-top btn-top-right mt-1"
+                    onclick="adminLogin()"
+                    type="button"
+                  >
+                    管理員登入
+                  </button>
+                  </div>
+                </div>
+               
+                
+              
+                
                 <button
                   class="btn btn-primary btn-bottom mt-3"
                   onclick="googleLogin()"

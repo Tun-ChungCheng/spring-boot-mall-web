@@ -1,0 +1,28 @@
+.container {
+  background-color: rgba(229, 233, 236, 0.8);
+  min-height: 600px;
+}
+
+.carousel .carousel-control {
+  opacity: 0;
+}
+
+.carousel:hover .carousel-control {
+  opacity: 1;
+}
+
+.carousel .carousel-indicators {
+  opacity: 0;
+}
+
+.carousel:hover .carousel-indicators {
+  opacity: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+#gameTitleIcon {
+  width: 50%;
+}
