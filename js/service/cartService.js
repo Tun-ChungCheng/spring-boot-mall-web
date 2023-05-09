@@ -60,7 +60,7 @@ function setCart() {
             <a id="delete-${
               cartItem.productId
             }" class="btn btn-danger" onclick="deleteFromCart(this)"
-              ><i class="fa-solid fa-x"></i
+              style="position: relative; right: 0.5rem;"><i class="fa-solid fa-x"></i
             ></a>
           </div>
         </div>

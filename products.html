@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>遊戲世界，你掌控。</title>
-    <link rel="icon" href="./public/hub.png" type="image/x-icon">
+    <link rel="icon" href="./public/hub.png" type="image/x-icon" />
 
     <!-- Bootstrap core CSS -->
     <link
@@ -174,30 +174,50 @@
             </span>
           </div>
         </div>
-         <!--        新增搜尋列表-->
-         <div class="container py-1 border rounded-3" style="background-color: #eaf4f4">
+        <!--        新增搜尋列表-->
+        <div
+          class="container py-1 border rounded-3"
+          style="background-color: #eaf4f4"
+        >
           <div class="d-flex flex-row bd-highlight">
-              <div class="p-2 bd-highlight">
-                  <input class="form-control" type="search" placeholder="Search" aria-label="Search"
-                         id="search-input">
-              </div>
-              <div class="p-2 bd-highlight">
-                  <button class="btn btn-outline-success" onclick="keySearch()">Search <i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
-              </div>
-<!--                        依分類搜索-->
+            <div class="p-2 bd-highlight">
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                id="search-input"
+              />
+            </div>
+            <div class="p-2 bd-highlight">
+              <button class="btn btn-outline-success" onclick="keySearch()">
+                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+            <!--                        依分類搜索-->
 
-              <div class="p-2 dropdown">
-                  <a id="categoryName" class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                      依分類搜索
-                  </a>
-                  <ul id="categoryMenu" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  </ul>
-              </div>
-
+            <div class="p-2 dropdown">
+              <a
+                id="categoryName"
+                class="btn btn-outline-success dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                依分類搜索
+              </a>
+              <ul
+                id="categoryMenu"
+                class="dropdown-menu"
+                aria-labelledby="dropdownMenuLink"
+              ></ul>
+            </div>
           </div>
-      </div>
-      <!--                        依分類搜索-->
-      <!--        新增搜尋列表-->
+        </div>
+        <!--                        依分類搜索-->
+        <!--        新增搜尋列表-->
       </div>
 
       <!-- 讀取圖示 -->
