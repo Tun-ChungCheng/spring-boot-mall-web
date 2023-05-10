@@ -102,11 +102,9 @@ function googleLogin() {
   window.location.href = `${serverUrl}/redirectToGoogle`
 }
 
-function memberLogin(){
-  $('#loginEmail').val('iammember@gamehub '),
-  $('#loginPassword').val('gamehub')
+function memberLogin() {
+  $('#loginEmail').val('iammember@gamehub '), $('#loginPassword').val('gamehub')
 }
-function adminLogin(){
-  $('#loginEmail').val('iamadmin@gamehub'),
-  $('#loginPassword').val('gamehub')
+function adminLogin() {
+  $('#loginEmail').val('iamadmin@gamehub'), $('#loginPassword').val('gamehub')
 }

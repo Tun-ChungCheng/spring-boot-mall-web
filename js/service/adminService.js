@@ -339,6 +339,7 @@ function showAllUsers() {
 
 function setUserTable(response) {
   users = response.results
+  console.log(users)
   main.empty().append(`
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover caption-top fw-bold">
@@ -361,7 +362,7 @@ function setUserTable(response) {
               <tr>
                 <th scope="row">${index + 1}</th>
                 <td>${user.email}</td>
-                <td>${user.userName}</td>
+                <td>${user.fullName}</td>
                 <td>${role[user.role]}</td>
                 <td>${user.lastModifiedDate}</td>
                 <td>${user.createdDate}</td>
@@ -420,7 +421,7 @@ function setOrderTable(response) {
               <tr>
                 <th scope="row">${index + 1}</th>
                 <td>${order.uuid}</td>
-                <td>${order.user.userName}</td>
+                <td>${order.user.fullName}</td>
                 <td>${order.totalAmount}</td>
                 <td>${
                   order.paymentStatus === 'UNPAY' ? '未付款' : '已付款'

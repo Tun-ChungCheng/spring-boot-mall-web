@@ -196,35 +196,39 @@ function selectCategory(anchor) {
   if (anchor === undefined) {
     $('#categoryBtn').text('全部')
     category = ''
-    document.getElementById("categoryName").innerText = "ALL";
-    categorySearch(category);
+    document.getElementById('categoryName').innerText = 'ALL'
+    categorySearch(category)
   } else {
     $('#categoryBtn').text(anchor.innerText)
     category = anchor.innerText
-    let categoryKey = Object.keys(gameType).find(key => gameType[key] === category)
-    document.getElementById("categoryName").innerText = gameType[categoryKey];
-    categorySearch(categoryKey);
+    let categoryKey = Object.keys(gameType).find(
+      (key) => gameType[key] === category
+    )
+    document.getElementById('categoryName').innerText = gameType[categoryKey]
+    categorySearch(categoryKey)
   }
-
 }
 
 // 分類搜尋 若關鍵字搜尋欄位中有值 加進來一起判斷 沒有就只搜尋分類
-function categorySearch(category){
+function categorySearch(category) {
   const searchValue = document.querySelector('input[type="search"]').value
-  if ( searchValue !== ''){
+  if (searchValue !== '') {
     $.ajax({
       type: 'GET',
-      url: serverUrl + `/api/products?page=1&size=${size}&search=${searchValue}&category=${category}`,
+      url:
+        serverUrl +
+        `/api/products?page=1&size=${size}&search=${searchValue}&category=${category}`,
       success: function (response) {
         console.log(response)
         setProduct(response)
         setPages(response)
         page = 1
-        document.querySelector('input[type="search"]').value = '';
-        bottomElement.scrollTop = bottomElement.scrollHeight - bottomElement.clientHeight;
+        document.querySelector('input[type="search"]').value = ''
+        bottomElement.scrollTop =
+          bottomElement.scrollHeight - bottomElement.clientHeight
       },
     })
-  } else{
+  } else {
     $.ajax({
       type: 'GET',
       url: serverUrl + `/api/products?page=1&size=${size}&category=${category}`,
@@ -233,18 +237,19 @@ function categorySearch(category){
         setProduct(response)
         setPages(response)
         page = 1
-        document.querySelector('input[type="search"]').value = '';
-        bottomElement.scrollTop = bottomElement.scrollHeight - bottomElement.clientHeight;
+        document.querySelector('input[type="search"]').value = ''
+        bottomElement.scrollTop =
+          bottomElement.scrollHeight - bottomElement.clientHeight
       },
     })
   }
 }
 
 //底部位置
-const bottomElement = document.documentElement;
+const bottomElement = document.documentElement
 
 function keySearch() {
-  const searchValue = document.querySelector('input[type="search"]').value;
+  const searchValue = document.querySelector('input[type="search"]').value
   $.ajax({
     type: 'GET',
     url: serverUrl + `/api/products?page=1&size=${size}&search=${searchValue}`,
@@ -253,17 +258,17 @@ function keySearch() {
       setProduct(response)
       setPages(response)
       page = 1
-      document.querySelector('input[type="search"]').value = '';
-      bottomElement.scrollTop = bottomElement.scrollHeight - bottomElement.clientHeight;
+      document.querySelector('input[type="search"]').value = ''
+      bottomElement.scrollTop =
+        bottomElement.scrollHeight - bottomElement.clientHeight
     },
   })
 }
 
 //空白鍵輸入執行搜尋
-const searchInput = document.getElementById('search-input');
+const searchInput = document.getElementById('search-input')
 searchInput.addEventListener('keydown', (event) => {
   if (event.keyCode === 13) {
-    keySearch();
+    keySearch()
   }
-});
-
+})
