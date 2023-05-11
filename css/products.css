@@ -3,6 +3,7 @@
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  min-height: 300px;
 }
 
 .game-type:hover {
@@ -10,16 +11,26 @@
 }
 
 #MMORPG {
-  background-image: url(../public/mapleStory.jpg);
+  background-image: url(../public/RWD.png);
+}
+#MMORPG:hover {
+  background-image: url(../public/MMORPG.png);
 }
 
 #RPG {
-  background-image: url(../public/ghost.jpg);
+  background-image: url(../public/RWD.png);
+}
+#RPG:hover {
+  background-image: url(../public/RPG.png);
 }
 
 #FPS {
-  background-image: url(../public/csgo.png);
+  background-image: url(../public/RWD.png);
 }
+#FPS:hover {
+  background-image: url(../public/FPS.jpg);
+}
+
 
 .bd-placeholder-img {
   font-size: 1.125rem;
@@ -74,6 +85,9 @@ html.sr .load-hidden {
 @media (max-width: 768px) {
   .carousel-item {
     height: 250px;
+  }
+  .game-type {
+    min-height: 200px;
   }
 }
 .carousel-img {
