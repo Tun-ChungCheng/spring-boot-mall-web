@@ -12,7 +12,6 @@ function checkAccessToken() {
     localStorage.setItem('userId', userId)
   }
 
-  console.log(token)
   if (token === null) {
     $('#authBtn').empty()
     $('#authBtn').append(`

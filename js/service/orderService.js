@@ -24,7 +24,6 @@ function getOrders() {
     type: 'GET',
     url: `${serverUrl}/api/users/${userId}/orders?size=5`,
     success: function (response) {
-      console.log(response)
       setOrderTable(response)
     },
   })

@@ -339,7 +339,6 @@ function showAllUsers() {
 
 function setUserTable(response) {
   users = response.results
-  console.log(users)
   main.empty().append(`
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover caption-top fw-bold">

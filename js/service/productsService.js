@@ -88,7 +88,6 @@ function setProduct(response) {
   cardsEl.empty()
 
   products.map((product) => {
-    console.log(product)
     cardsEl.append(`
     <div class="col">
       <div id="${
@@ -128,7 +127,6 @@ function setProduct(response) {
 function redirectProductPage(divEl) {
   const productId = divEl.id
   window.location.href = `./product.html?id=${productId}`
-  console.log(divEl)
 }
 
 function setPages(response) {
@@ -192,7 +190,6 @@ function queryPage(button) {
 }
 
 function selectCategory(anchor) {
-  console.log(anchor)
   if (anchor === undefined) {
     $('#categoryBtn').text('全部')
     category = ''
@@ -219,7 +216,6 @@ function categorySearch(category) {
         serverUrl +
         `/api/products?page=1&size=${size}&search=${searchValue}&category=${category}`,
       success: function (response) {
-        console.log(response)
         setProduct(response)
         setPages(response)
         page = 1
@@ -233,7 +229,6 @@ function categorySearch(category) {
       type: 'GET',
       url: serverUrl + `/api/products?page=1&size=${size}&category=${category}`,
       success: function (response) {
-        console.log(response)
         setProduct(response)
         setPages(response)
         page = 1
@@ -254,7 +249,6 @@ function keySearch() {
     type: 'GET',
     url: serverUrl + `/api/products?page=1&size=${size}&search=${searchValue}`,
     success: function (response) {
-      console.log(response)
       setProduct(response)
       setPages(response)
       page = 1

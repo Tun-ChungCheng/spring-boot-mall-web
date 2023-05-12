@@ -141,15 +141,15 @@ function deleteFromCart(button) {
 }
 
 function createOrder() {
-  let buyItemList = []
+  let buyItems = []
   cart.map((cartItem, index) => {
-    buyItemList[index] = {
+    buyItems[index] = {
       productId: cartItem.productId,
       quantity: cartItem.quantity,
     }
   })
   const data = {
-    buyItemList: buyItemList,
+    buyItems: buyItems,
   }
 
   if (token === null) window.location.href = './auth.html'

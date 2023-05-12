@@ -30,7 +30,6 @@ function register() {
     data: JSON.stringify(data),
     success: function (response) {
       showToast('註冊成功，請驗證此帳號')
-      console.log(response)
     },
     error: function () {
       showToast('使用者資料填寫有誤或已經註冊')
