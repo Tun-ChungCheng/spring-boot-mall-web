@@ -75,7 +75,7 @@ function setProduct(response) {
   $('#category').text(gameType[product.category])
   $('#createdDate').text(product.createdDate)
   $('#price').text('$' + product.price)
-  $('.image').attr('src', 'data:image/png;base64,' + product.image)
+  $('#image').attr('src', 'data:image/png;base64,' + product.image)
 }
 
 function buyNow() {
