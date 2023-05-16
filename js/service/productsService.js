@@ -1,4 +1,4 @@
-const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+const serverUrl = 'http://localhost:8080' //'https://spring-boot-mall-api-production.up.railway.app'
 const size = 4
 const gameType = {
   SURVIVAL: '生存',
@@ -48,7 +48,7 @@ ScrollReveal({ reset: true }).reveal('#myCarousel', {
 function getCategories() {
   $.ajax({
     type: 'GET',
-    url: serverUrl + '/api/products/categories',
+    url: `${serverUrl}/api/products/categories`,
     success: function (response) {
       setCategories(response)
     },
@@ -72,9 +72,7 @@ function setCategories(response) {
 function getProducts(page) {
   $.ajax({
     type: 'GET',
-    url:
-      serverUrl +
-      `/api/products?page=${page}&size=${size}&category=${category}&search=${search}`,
+    url: `${serverUrl}/api/products?page=${page}&size=${size}&category=${category}&search=${search}`,
     success: function (response) {
       setProduct(response)
       setPages(response)
@@ -83,7 +81,8 @@ function getProducts(page) {
 }
 
 function setProduct(response) {
-  products = [...response.results]
+  console.log(response)
+  products = [...response.content]
   const cardsEl = $('#cards')
   cardsEl.empty()
 
@@ -212,9 +211,7 @@ function categorySearch(category) {
   if (searchValue !== '') {
     $.ajax({
       type: 'GET',
-      url:
-        serverUrl +
-        `/api/products?page=1&size=${size}&search=${searchValue}&category=${category}`,
+      url: `${serverUrl}/api/products?page=1&size=${size}&search=${searchValue}&category=${category}`,
       success: function (response) {
         setProduct(response)
         setPages(response)
@@ -227,7 +224,7 @@ function categorySearch(category) {
   } else {
     $.ajax({
       type: 'GET',
-      url: serverUrl + `/api/products?page=1&size=${size}&category=${category}`,
+      url: `${serverUrl}/api/products?page=1&size=${size}&category=${category}`,
       success: function (response) {
         setProduct(response)
         setPages(response)
@@ -247,7 +244,7 @@ function keySearch() {
   const searchValue = document.querySelector('input[type="search"]').value
   $.ajax({
     type: 'GET',
-    url: serverUrl + `/api/products?page=1&size=${size}&search=${searchValue}`,
+    url: `${serverUrl}/api/products?page=1&size=${size}&search=${searchValue}`,
     success: function (response) {
       setProduct(response)
       setPages(response)

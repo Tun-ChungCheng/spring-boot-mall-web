@@ -1,4 +1,4 @@
-const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+const serverUrl = 'http://localhost:8080' //'https://spring-boot-mall-api-production.up.railway.app'
 const token = localStorage.getItem('accessToken')
 const userId = localStorage.getItem('userId')
 
@@ -30,7 +30,7 @@ function getOrders() {
 }
 
 function setOrderTable(response) {
-  const orders = response.results
+  const orders = response.content
   const tbodyEl = $('tbody')
 
   orders.map((order, index) => {

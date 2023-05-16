@@ -1,5 +1,5 @@
 const token = localStorage.getItem('accessToken')
-const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+const serverUrl = 'http://localhost:8080' //'https://spring-boot-mall-api-production.up.railway.app'
 const size = 5
 const role = {
   ROLE_ADMIN: '管理員',
@@ -58,7 +58,7 @@ function showAllProducts() {
 }
 
 function setProductTable(response) {
-  products = response.results
+  products = response.content
 
   main.empty().append(`
     <div class="table-responsive">
@@ -338,7 +338,7 @@ function showAllUsers() {
 }
 
 function setUserTable(response) {
-  users = response.results
+  users = response.content
   main.empty().append(`
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover caption-top fw-bold">
@@ -394,7 +394,7 @@ function showAllOrders() {
 }
 
 function setOrderTable(response) {
-  const orders = response.results
+  const orders = response.content
 
   main.empty().append(`
     <div class="table-responsive">

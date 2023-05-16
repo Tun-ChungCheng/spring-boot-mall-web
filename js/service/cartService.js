@@ -1,4 +1,4 @@
-const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
+const serverUrl = 'http://localhost:8080'//'https://spring-boot-mall-api-production.up.railway.app'
 const userId = localStorage.getItem('userId')
 const token = localStorage.getItem('accessToken')
 
