@@ -1,5 +1,5 @@
 const token = localStorage.getItem('accessToken')
-const serverUrl = 'http://localhost:8080' //'https://spring-boot-mall-api-production.up.railway.app'
+const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
 const size = 5
 const role = {
   ROLE_ADMIN: '管理員',

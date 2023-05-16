@@ -1,4 +1,4 @@
-const serverUrl = 'http://localhost:8080' //'https://spring-boot-mall-api-production.up.railway.app'
+const serverUrl = 'https://spring-boot-mall-api-production.up.railway.app'
 const gameType = {
   SURVIVAL: '生存',
   LEISURE: '休閒',
